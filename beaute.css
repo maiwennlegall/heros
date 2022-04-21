@@ -1,11 +1,11 @@
 #test
 {
-    background-color: black;
+    background-color: rgb(28, 84, 158);
 }
 
 #test2
 {
-    color:tomato;
+    color:gold;
 }
 
 #test3
@@ -15,4 +15,13 @@
 #test4
 {
     color : white;
+}
+#corps
+{
+    background-color:rosybrown;
+}
+#logo
+{
+    max-height: 50px;
+    
 }
