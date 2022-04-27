@@ -104,11 +104,25 @@ ne soit pas une fin ! -->
             //vérifier le empty de POST
             function premier_ch_non_fini() {
                 global $BDD;
-                $res = $BDD->query('SELECT * FROM chapitre');
-                while($tuple = $res->fetch()) {
+                $requete = "SELECT * FROM chapitre WHERE id_hist=?";
+                $response = $BDD->prepare($requete);
+                $response->execute(array($_GET['histoire']));
+                    /*
+                $res = $BDD->query('SELECT * FROM chapitre WHERE id_hist=:hist');
+                $res -> execute(array(
+                    'hist' => $_GET['histoire'],
+                ));*/
+                while($tuple = $response->fetch()) {
                     
-                    $maNewReq = "SELECT * FROM chapitre";
-                    $newReponse = $BDD -> query($maNewReq);
+                    /*
+                    $maNewReq = "SELECT * FROM chapitre WHERE id_hist=:hist";
+                    $res -> execute(array(
+                        'hist' => $_GET['histoire'],
+                    ));*/
+                    $newRequete = "SELECT * FROM chapitre WHERE id_hist=?";
+                    $res = $BDD->prepare($newRequete);
+                    $res->execute(array($_GET['histoire']));
+
                     $test = false;
                     $valeur = $tuple['id_ch_choix1'];
                     $text_choix = $tuple['choix1'];
