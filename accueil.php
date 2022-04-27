@@ -23,10 +23,20 @@ require_once "includes/functions.php";
             while($tuple = $res->fetch()) {
             if($tuple["cache"]==0) //l'histoire n'est pas caché !
             {
+                //En commentaire tant que la session n'est pas crée
+                /*if($_SESSION["usr_login"])
+                {
+                    ?> <h2> <a href="histoire.php?name=<?= $tuple["identifiant"] ?>&ch=0" class="histoire"><?= $tuple["titre"] ?></a></h2> <?php
+                }
+                else
+                {*/
+                    ?> <h2> <?= $tuple["titre"] ?></a></h2> <?php
+                //}
                 ?>
 
-                <h2> <a href="histoire.php?name=<?= $tuple["identifiant"] ?>&ch=0" class="histoire"><?= $tuple["titre"] ?></a></h2>
-                <!-- résumé d'histoire ?? -->
+                
+                <div class="container"> <?= $tuple["resumer"] ?> </div>
+                <br/>
                 <?php
             }
             }

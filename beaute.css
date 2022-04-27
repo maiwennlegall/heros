@@ -27,6 +27,10 @@
 }
 #trophaut
 {
-    margin-top: 100px;
+    margin-top: 75px;
     text-align: center;
+}
+h1
+{
+    margin-bottom : 50px;
 }

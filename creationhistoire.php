@@ -16,7 +16,16 @@ if(!empty($_POST["nom"])&&!empty($_POST["resume"]))
                     'title' => $_POST["nom"],
                     'resumer' => $_POST["resume"],
                 ));
-                redirect("creationchapitre.php");
+
+
+                $maReq = "SELECT identifiant FROM histoire WHERE titre=:title";
+                $reponse = $BDD -> prepare($maReq);
+                $reponse ->execute(array("title"=>$_POST["nom"]));
+                print_r( $reponse);
+                $ligne = $reponse -> fetch($identifiant = $ligne["identifiant"]);
+                ?> <br/><br/><br/><br/><br/>
+                <?php
+                redirect("creationchapitre.php?debut=1&histoire=".$ligne['identifiant']);
             }
         ?>
 
@@ -45,3 +54,5 @@ if(!empty($_POST["nom"])&&!empty($_POST["resume"]))
 
     <?php require_once "includes/scripts.php"; ?>
 </body>
+
+</html>

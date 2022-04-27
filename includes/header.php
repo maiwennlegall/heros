@@ -9,12 +9,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="../../heros/creationhistoire.php" id="test4">Création histoire</a>
+        </li>
         <li class="nav-item active">
           <a class="nav-link" href="../../heros/connexion.php" id="test3" >Connexion</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" id="test4">??</a>
-        </li>
+        
       </ul>
     </div>
   </nav>
