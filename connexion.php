@@ -25,19 +25,19 @@ if (!empty($_POST['login']) and !empty($_POST['mdp'])) {
 
     </div>
         <br/> <br/><br/>
-    <h1>Connexion</h1>
+    <h1 class="text-center">Connexion</h1>
 <?php if (isset($error)) { ?>
         <div class="alert alert-danger">
         <strong>Erreur !</strong> <?= $error ?>
         </div>
 <?php } ?>
-<div class="formulaire">
+<div class="text-center">
         <form method="post" action="connexion.php"> <!--changer le fichier dans action-->
         <input type="text"  name="login" placeholder="Entrez votre login" > <br/><br/>
         <input type="password"  name="mdp" placeholder="Entrez votre mot de passe" ><br/><br/>
         <input type="submit" name="se_connecter" id="se_connecter" value="Se connecter"/>            
 </div>
-Je n'ai pas de compte: <a href="inscription.php">Créer un compte</a>
+<p class="text-center">Je n'ai pas de compte: <a href="inscription.php">Créer un compte</a></p>
     <?php require_once "includes/scripts.php"; ?>
 </body>
 

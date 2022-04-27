@@ -22,14 +22,14 @@
 
     </div>
         <br/> <br/><br/>
-    <h1>Inscription</h1>
+    <h1 class="text-center">Inscription</h1>
 
-<div class="formulaire">
+<div class="text-center">
         <form method="post" action="inscription.php"> <!--changer le fichier dans action-->
         <input type="text"  name="login" placeholder="Entrez un identifiant" > <br/><br/>
         <input type="password"  name="mdp" placeholder="Entrez un mot de passe" ><br/><br/>
         <input type="submit" name="s_inscrire" id="s_inscrire" value="S'inscrire"/>            
 </div>
-J'ai déjà un compte: <a href="connexion.php">Se connecter</a>
+<p class="text-center"> J'ai déjà un compte: <a href="connexion.php">Se connecter</a></p>
     <?php require_once "includes/scripts.php"; ?>
 </body>

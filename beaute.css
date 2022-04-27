@@ -34,3 +34,28 @@ h1
 {
     margin-bottom : 50px;
 }
+
+/*ne marche pas*/
+.bouton
+{
+    text-decoration: none;
+    color:white;
+    background-color: rgb(28, 84, 158);
+    border-radius:10px;
+}
+
+a, .bouton:hover
+{
+    text-decoration: none;
+    color:white;
+    background-color: rgb(28, 84, 158);
+    border-radius:10px;
+}
+
+a, .bouton:visited
+{
+    text-decoration: none;
+    color:white;
+    background-color: rgb(28, 84, 158);
+    border-radius:10px;
+}
