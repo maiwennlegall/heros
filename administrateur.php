@@ -29,7 +29,7 @@ require_once "includes/functions.php";
                     </a>
                     <img src="includes/eye.png" id="logo"> <!-- Cacher / Rendre visible -->
                     <?= $tuple["titre"] ?>  <!-- Titre de l'histoire -->
-                    <a href="statistiques?name=<?= $tuple["identifiant"] ?>">  <!-- Page statisqtiques -->
+                    <a href="statistiques.php?name=<?= $tuple["identifiant"] ?>">  <!-- Page statisqtiques -->
                         <img src="includes/charts.png" id="logo">
                     </a>
                     <img src="includes/poubelle.png" id="logo"> <!-- Supprimer -->
