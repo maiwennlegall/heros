@@ -32,7 +32,9 @@ require_once "includes/functions.php";
                     <a href="statistiques.php?name=<?= $tuple["identifiant"] ?>">  <!-- Page statisqtiques -->
                         <img src="includes/charts.png" id="logo">
                     </a>
-                    <img src="includes/poubelle.png" id="logo"> <!-- Supprimer -->
+                    <a href="suppression.php?id=<?= $tuple["identifiant"] ?>">
+                        <img src="includes/poubelle.png" id="logo"> <!-- Supprimer -->
+                    </a>
                 </p>
             
                 <?php
