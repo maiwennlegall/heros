@@ -36,7 +36,8 @@ h1
 }
 
 /*A revoir*/
-/*.bouton
+/*
+.bouton
 {
     text-decoration: none;
     color:white;
@@ -59,4 +60,11 @@ h1
     color:white;
     background-color: rgb(28, 84, 158);
     border-radius:10px;
-}*/
+}
+
+.titre
+{
+    font-size: 16px;
+    
+}
+*/
