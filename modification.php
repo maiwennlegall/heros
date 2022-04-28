@@ -27,8 +27,26 @@ require_once "includes/functions.php";
                 <h1> Modification de l'histoire: <?= $tuple["titre"] ?></h1>
                 
             <?php        
-            }   
-               
+            } 
+            ?>  
+            <div class="formulaire">
+            <form method="POST" action="modification.php?id">  
+            <select name="choix_chapitre">
+
+            <?php 
+            $maReq = "SELECT * FROM chapitre WHERE id_hist=:idhistoire";
+            $response = $BDD->prepare($maReq);
+            $response->execute(array('idhistoire' => $_GET['id']));
+            while($tuple = $response->fetch())
+            { 
+            ?>
+                <option> Chapitre n°<?=$tuple['identifiant']?></option>
+                
+            <?php        
+            } 
+            ?> 
+            </select>   
+        <?php    
         }
         ?>
     </div>
