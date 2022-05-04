@@ -1,4 +1,4 @@
-<?php require_once "includes/functions.php"; ?>
+<?php session_start() ?>
 <?php require_once "includes/scripts.php"; ?>
 
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="test">
@@ -9,11 +9,37 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="../../heros/creationhistoire.php" id="test4">Création histoire</a>
-        </li>
+        <?php if(isset($_SESSION["login"]))
+        {
+          $premReq = "SELECT administrateur FROM utilisateur WHERE identifiant=:id";
+          $repp = $BDD -> prepare($premReq);
+          $repp -> execute(array("id" => $_SESSION["login"] ));
+          $line = $repp -> fetch();
+          if($line['administrateur']!=0)
+          {
+            ?> <li class="nav-item">
+            <a class="nav-link" href="../../heros/creationhistoire.php" id="test4">Création histoire</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="../../heros/administrateur.php" id="test4">Administrateur</a>
+            </li>
+            <?php
+          }
+        }
+        ?>
         <li class="nav-item active">
-          <a class="nav-link" href="../../heros/connexion.php" id="test3" >Connexion</a>
+          
+          <?php if(isset($_SESSION["login"]))
+          { 
+            
+            ?> <a class="nav-link" href="../../heros/deconnexion.php" id="test3" > Deconnexion de <?php echo $_SESSION["login"];
+          }
+          else
+          {
+            ?> <a class="nav-link" href="../../heros/connexion.php" id="test3" > Connexion <?php
+          }
+          ?>
+          </a>
         </li>
         
       </ul>

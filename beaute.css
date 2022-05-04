@@ -33,8 +33,27 @@
 h1
 {
     margin-bottom : 50px;
+    text-align: center;
 }
-
+#choix
+{
+    margin-top: 50px;
+    background-color: rgb(28, 84, 158);
+    color: white;
+}
+#chapitre
+{
+    background-color: gold;
+}
+#bleu
+{
+    color: rgb(28, 84, 158);
+}
+#psthist
+{
+    margin-top: 10px;
+    margin-left: 40px;
+}
 /*A revoir*/
 /*
 .bouton

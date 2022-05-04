@@ -3,7 +3,7 @@
 <?php
 require_once "includes/functions.php";
 ?>
-!doctype html>
+<!doctype html>
 <html>
 
 <?php require_once "includes/head.php"; ?>
