@@ -31,7 +31,7 @@ require_once "includes/functions.php";
             } 
             ?>  
             
-            <div class="formulaire">
+            <div class="formulaire text-center">
             <form method="POST" action="modification.php?id=<?=$identifiant_histoire?>">  
             <p>Choisissez le chapitre que vous voulez modifier:</p>
             <select name="chap">
@@ -68,23 +68,23 @@ require_once "includes/functions.php";
         while($tuple = $requete->fetch()) 
         {
         ?>
-        <p>Mofifier le chapitre: <?= $tuple["titre"] ?></p>
-        <form method="POST" action="enregistrermodifications.php?id=<?=$_GET['id']?>&idchap=<?=$tuple["identifiant"]?>">
+        <p class="text-center">Modifier le chapitre: <?= $tuple["titre"] ?></p>
+        <form method="POST" action="enregistrermodifications.php?id=<?=$_GET['id']?>&idchap=<?=$tuple["identifiant"]?>" class="text-center">
             
             <p>Modifier le texte</p>
             <textarea name="texte" cols="50" rows="7"><?= $tuple["textes"] ?></textarea> <br/><br/>
             <p>Modifier les choix</p>
-            <label for="nom">Choix 1 : </label> 
+            <label for="nom">Choix 1 : </label>  <br/><br/>
             <textarea name="choix1" cols="40" rows="7"><?= $tuple["choix1"] ?></textarea> <br/><br/>
-            <label for="nom">Choix 2 : </label> 
+            <label for="nom">Choix 2 : </label>  <br/><br/>
             <textarea name="choix2" cols="40" rows="7"><?= $tuple["choix2"] ?></textarea> <br/><br/>
-            <label for="nom">Choix 3 : </label> 
+            <label for="nom">Choix 3 : </label>  <br/><br/>
             <textarea name="choix3" cols="40" rows="7"><?= $tuple["choix3"] ?></textarea> <br/><br/>
             
            
             
             
-            <input type="submit" name="enregistrer" id="enregistrer" value="Enregistrer les modifications"/>
+            <input type="submit" name="enregistrer" id="enregistrer" value="Enregistrer les modifications"/> <br/><br/>
         </form> 
 <?php
     }}
