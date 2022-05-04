@@ -33,7 +33,7 @@ require_once "includes/functions.php";
                     if($tuple["cache"]==0)
                     {?>
                         <a href="cacher.php?id=<?= $tuple["identifiant"] ?>">  <!-- Cacher -->
-                            <img src="includes/crossedeye.png" id="logo">
+                            <img src="includes/closedeye.png" id="logo">
                         </a> 
                     
                     <?php
