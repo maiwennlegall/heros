@@ -24,7 +24,7 @@ require_once "includes/functions.php";
             while($tuple = $response->fetch())
             { 
             ?>
-                <h1> Satistiques sur l'histoire: <?= $tuple["titre"] ?></h1>
+                <h1> Statistiques sur l'histoire: <?= $tuple["titre"] ?></h1>
                 <?php
                 if($tuple["nb_joue"]==0)
                 {?>
