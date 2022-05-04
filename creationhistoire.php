@@ -45,7 +45,7 @@ if(!empty($_POST["nom"])&&!empty($_POST["resume"]))
             <label for="nom">Entrez le titre de votre histoire</label> <br/>
             <input type="varchar"  name="nom"> <br/><br/>
 
-            <label for="resume">Entrez le resume de votre histoire</label><br/>
+            <label for="resume">Entrez le resumé de votre histoire</label><br/>
             <input type="text"  name="resume"> <br/><br/>
             
             <button type="submit" class="btn btn-default btn-primary"> Envoyer </button>          
