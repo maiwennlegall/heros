@@ -35,6 +35,49 @@ function escape($value) {
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8', false);
 }
 
+function premier_ch_non_fini() {
+    global $BDD;
+    $requete = "SELECT * FROM chapitre WHERE id_hist=?";
+    $response = $BDD->prepare($requete);
+    $response->execute(array($_GET['histoire']));
+        
+    while($tuple = $response->fetch()) {
+        
+       
+        $newRequete = "SELECT * FROM chapitre WHERE id_hist=?";
+        $res = $BDD->prepare($newRequete);
+        $res->execute(array($_GET['histoire']));
+
+        $test = false;
+        $valeur = $tuple['id_ch_choix1'];
+        $text_choix = $tuple['choix1'];
+        if($tuple['id_ch_choix1']==null) 
+            $test=true;
+        else
+        {
+            while($newtuple = $res->fetch()){ 
+                if($tuple['id_ch_choix1']==$newtuple['identifiant'])
+                {
+                    $valeur = $tuple['id_ch_choix2'];
+                    $text_choix = $tuple['choix2'];
+                }
+                if($tuple['id_ch_choix2']==$newtuple['identifiant'])
+                {
+                    $valeur = $tuple['id_ch_choix3'];
+                    $text_choix = $tuple['choix3'];
+                }
+                if($tuple['id_ch_choix3']==$newtuple['identifiant'])
+                     $test = true;
+            }            
+        }
+        if($test == false)
+        {
+            return [$valeur, $tuple['textes'], $text_choix]; 
+        }
+    }
+    return [null, null, null];
+}
+
 //regarder quelle la suite à faire, le texte du choix et 
 /*function premier_ch_non_fini() {
     $maReq = "SELECT * FROM chapitre";

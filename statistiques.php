@@ -1,9 +1,8 @@
-<?php session_start() ?>
 <?php include("includes/connect.php"); ?>
 <?php
 require_once "includes/functions.php";
 ?>
-!doctype html>
+<!doctype html>
 <html>
 
 <?php require_once "includes/head.php"; ?>
@@ -18,7 +17,7 @@ require_once "includes/functions.php";
     <?php
         if(isset($_GET['id'])) 
         {
-            $maReq = "SELECT * FROM histoire WHERE identifiant=:idhistoire";
+            $maReq = "SELECT * FROM histoire WHERE hist_id=:idhistoire";
             $response = $BDD->prepare($maReq);
             $response->execute(array('idhistoire' => $_GET['id']));
             while($tuple = $response->fetch())

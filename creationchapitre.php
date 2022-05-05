@@ -1,4 +1,4 @@
-<?php session_start() ?>
+<?php //session_start() ?>
 <?php include("includes/connect.php"); ?>
 <?php
 require_once "includes/functions.php";
@@ -21,18 +21,16 @@ require_once "includes/functions.php";
     if(!empty($_POST["resumer"]) && !empty($_POST["titre"]))
             {   
                 $res = $BDD->query('SELECT count(*) as nb from chapitre');
-                $data = $res->fetch();
-                $nb = $data['nb'];                      
+                $data = $res->fetch();                  
                 $nb_chapitres_faits = $data['nb'];
 
                 $res = $BDD->query('SELECT count(id_ch_choix1) as nbr from chapitre WHERE id_ch_choix1!="NULL"');
-                $data = $res->fetch();
-                $nb = $data['nbr'];                      
+                $data = $res->fetch();                 
                 $nb_chapitres_pas_fin = $data['nbr'];
                 
                 if(isset($_POST['fin']))
                 {
-                    $maReq = $BDD -> prepare("INSERT INTO chapitre (identifiant, titre, id_hist, textes) VALUES (:id, :title, :hist, :ecriture)");
+                    $maReq = $BDD -> prepare("INSERT INTO chapitre (id_chapitre, titre, id_hist, textes) VALUES (:id, :title, :hist, :ecriture)");
                         $maReq -> execute(array(
                             'id' => $nb_chapitres_faits+1,
                             'title' => $_POST['titre'],
@@ -50,12 +48,12 @@ require_once "includes/functions.php";
                     }
                     else
                     {
-                        $maReq = $BDD -> prepare("INSERT INTO chapitre (identifiant, titre, id_hist, id_ch_choix1, id_ch_choix2, id_ch_choix3, choix1, choix2, choix3, textes) VALUES (:id, :title, :hist, :id1, :id2, :id3, :t1, :t2, :t3, :ecriture)");
+                        $maReq = $BDD -> prepare("INSERT INTO chapitre (id_chapitre, titre, id_hist, modif_vie, id_ch_choix1, id_ch_choix2, id_ch_choix3, choix1, choix2, choix3, textes) VALUES (:id, :title, :hist, :vie, :id1, :id2, :id3, :t1, :t2, :t3, :ecriture)");
                         $maReq -> execute(array(
                             'id' => $nb_chapitres_faits+1,
                             'title' => $_POST['titre'],
                             'hist' => $_GET['histoire'],
-                            
+                            'vie' => $_POST['vie'],
                             'id1' => ($nb_chapitres_pas_fin*3)+2,
                             'id2' => ($nb_chapitres_pas_fin*3)+3,
                             'id3' => ($nb_chapitres_pas_fin*3)+4,
@@ -92,48 +90,6 @@ require_once "includes/functions.php";
                 <?php 
         }
         else {
-            function premier_ch_non_fini() {
-                global $BDD;
-                $requete = "SELECT * FROM chapitre WHERE id_hist=?";
-                $response = $BDD->prepare($requete);
-                $response->execute(array($_GET['histoire']));
-                    
-                while($tuple = $response->fetch()) {
-                    
-                   
-                    $newRequete = "SELECT * FROM chapitre WHERE id_hist=?";
-                    $res = $BDD->prepare($newRequete);
-                    $res->execute(array($_GET['histoire']));
-
-                    $test = false;
-                    $valeur = $tuple['id_ch_choix1'];
-                    $text_choix = $tuple['choix1'];
-                    if($tuple['id_ch_choix1']==null) 
-                        $test=true;
-                    else
-                    {
-                        while($newtuple = $res->fetch()){ 
-                            if($tuple['id_ch_choix1']==$newtuple['identifiant'])
-                            {
-                                $valeur = $tuple['id_ch_choix2'];
-                                $text_choix = $tuple['choix2'];
-                            }
-                            if($tuple['id_ch_choix2']==$newtuple['identifiant'])
-                            {
-                                $valeur = $tuple['id_ch_choix3'];
-                                $text_choix = $tuple['choix3'];
-                            }
-                            if($tuple['id_ch_choix3']==$newtuple['identifiant'])
-                                 $test = true;
-                        }            
-                    }
-                    if($test == false)
-                    {
-                        return [$valeur, $tuple['textes'], $text_choix]; 
-                    }
-                }
-                return [null, null, null];
-            }
             [$valeur, $text_chap, $text_choix] = premier_ch_non_fini();
             ?> 
             <div class="container">
@@ -158,7 +114,7 @@ require_once "includes/functions.php";
                     <?php
             }
             else {
-                $res = $BDD->prepare('UPDATE histoire SET cache = 0 WHERE identifiant = :id'); 
+                $res = $BDD->prepare('UPDATE histoire SET cache = 0 WHERE hist_id = :id'); 
                 $res->execute(array('id' => $_GET['histoire']));  
                 redirect('accueil.php'); 
             }
@@ -173,7 +129,10 @@ require_once "includes/functions.php";
             <label for="title">Titre de votre chapitre</label>
             <input type="text" name="titre"> <br/><br/>
 
-            <textarea name="resumer" cols="50" rows="7">Texte de votre chapitre</textarea> <br/><br/>
+            <textarea name="resumer" cols="50" rows="7" placeholder="Texte de votre chapitre"></textarea> <br/><br/>
+
+            <label for="vie">Modification du nombre de vie (+1, -1...)</label>
+            <input type="number"  name="vie"> <br/><br/>
 
             <label for="ch1">Choix n°1</label>
             <input type="text"  name="ch1"> <br/><br/>
@@ -182,10 +141,22 @@ require_once "includes/functions.php";
             <input type="text"  name="ch2"> <br/><br/>
 
             <label for="ch3">Choix n°3</label>
-            <input type="text"  name="ch3"> <br/><br/>
+            <input type="text"  name="ch3"> 
 
-            <label for="fin"> Cochez si cela constitue une fin </label>
-            <input type="radio" name="fin"> </br>
+            <fieldset>
+                <legend>Cochez si cela constitue une fin</legend>
+
+                <div>
+                <input type="radio" id="positive" name="fin" value="Fin positive">
+                        
+                <label for="positive">Fin positive</label>
+                </div>
+
+                <div>
+                <input type="radio" id="negative" name="fin" value="Fin negative">
+                <label for="negative">Fin negative</label>
+                </div>
+            </fieldset>
             
             <button type="submit" class="btn btn-default btn-primary"> Chapitre fait ! </button>  
             <br/><br/><br/><br/>          

@@ -7,7 +7,7 @@
     if(isset($_GET['id'])) 
     {
         
-        $requete = $BDD->prepare('UPDATE histoire SET cache=:valeur WHERE identifiant=:idhistoire');
+        $requete = $BDD->prepare('UPDATE histoire SET cache=:valeur WHERE hist_id=:idhistoire');
         $requete->execute(array('valeur' => $newvalue,'idhistoire'=> $_GET['id']));
 
     }

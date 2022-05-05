@@ -19,7 +19,7 @@ require_once "includes/functions.php";
         if(isset($_GET['id'])) 
         {
             $identifiant_histoire=$_GET['id'];
-            $maReq = "SELECT * FROM histoire WHERE identifiant=:idhistoire";
+            $maReq = "SELECT * FROM histoire WHERE hist_id=:idhistoire";
             $response = $BDD->prepare($maReq);
             $response->execute(array('idhistoire' => $identifiant_histoire));
             while($tuple = $response->fetch())

@@ -18,7 +18,9 @@
 }
 #corps
 {
-    background-color:rosybrown;
+    background-color:rgb(255, 240, 152);
+    padding-top: 75px;
+
 }
 #logo
 {
@@ -43,7 +45,7 @@ h1
 }
 #chapitre
 {
-    background-color: gold;
+    border: solid rgb(28, 84, 158) ;
 }
 #bleu
 {
@@ -53,6 +55,36 @@ h1
 {
     margin-top: 10px;
     margin-left: 40px;
+}
+button
+{
+    /*min-width: 100px;
+    min-height: 50px;*/
+    font-size: 60%;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: rgb(28, 84, 158);
+    border-color: rgb(28, 84, 158);
+    color :rgb(255, 240, 152);
+}
+button:hover, .btn_hover:hover/*marche pas...*/
+{
+    background-color: gold;
+}
+.btn_hover:active, button:active /*marche pas...*/
+{
+    background-color: green;
+}
+fieldset
+{
+    margin : auto;
+    max-width: fit-content;
+    margin-top : 50px;
+    margin-bottom: 50px;
+    border : solid black 1px;
+    text-align: center;
 }
 /*A revoir*/
 /*

@@ -11,7 +11,7 @@
 
         if(!empty($_POST["login"])&&!empty($_POST["mdp"]))
             {   
-                $maReq = $BDD -> prepare("INSERT INTO utilisateur (identifiant, mdp) VALUES (:identifiant, :mdp)");
+                $maReq = $BDD -> prepare("INSERT INTO utilisateur (id_joueur, mdp) VALUES (:identifiant, :mdp)");
                 $maReq -> execute(array(
                     'identifiant' => $_POST["login"],
                     'mdp' => $_POST["mdp"],

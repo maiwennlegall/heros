@@ -1,4 +1,3 @@
-<?php session_start() ?>
 <?php include("includes/connect.php"); ?>
 <?php
 require_once "includes/functions.php";
@@ -15,7 +14,7 @@ require_once "includes/functions.php";
         <?php require_once "includes/header.php"; ?>
 
     </div>
-<br/> <br/><br/><br/><br/>
+    <div class="container" id="corps">
     <?php 
         $premReq = "SELECT COUNT(*) as nb FROM partie WHERE id_utilisateur=:id and id_hist=:hist";
         $repp = $BDD -> prepare($premReq);
@@ -26,24 +25,111 @@ require_once "includes/functions.php";
         $line = $repp -> fetch();
         if($line['nb']==0)
         {
-            $req = $BDD -> prepare("INSERT INTO partie (id_utilisateur, id_hist, point_de_vie, id_chap, etat_fin) VALUES (:id, :hist, 0, :ch, 0)");
+            $premReq = "SELECT nb_vie_dbt FROM histoire WHERE hist_id=:hist";
+            $repp = $BDD -> prepare($premReq);
+            $repp -> execute(array(
+                "hist" => $_GET["hist"],
+            ));
+            $line = $repp -> fetch();
+            $vie_dbt = $line['nb_vie_dbt'];
+
+            $req = $BDD -> prepare("INSERT INTO partie (id_utilisateur, id_hist, point_de_vie, id_chap, etat_fin) VALUES (:id, :hist, :vie, :ch, 0)");
             $req -> execute(array(
                             'id' => $_SESSION["login"],
                             'hist' => $_GET['hist'],
+                            'vie' => $vie_dbt,
                             'ch' => $_GET['ch'],
                             ));
         }
-        else
+        else if(isset($_GET["debut"]))
         {
-            $res = $BDD->prepare('UPDATE partie SET id_chap =:ch WHERE id_utilisateur = :id and id_hist=:hist'); 
+            $premReq = "SELECT nb_vie_dbt FROM histoire WHERE hist_id=:hist";
+            $repp = $BDD -> prepare($premReq);
+            $repp -> execute(array(
+                "hist" => $_GET["hist"],
+            ));
+            $line = $repp -> fetch();
+            $vie_dbt = $line['nb_vie_dbt'];
+
+            $res = $BDD->prepare('UPDATE partie SET id_chap =:ch, point_de_vie=:vie, etat_fin=0 WHERE id_utilisateur = :id and id_hist=:hist'); 
             $res->execute(array(
                 'id' => $_SESSION["login"],
+                'vie' => $vie_dbt,
                 "hist" => $_GET["hist"],
                 "ch" => $_GET["ch"],
             )); 
         }
+        else if(!isset($_GET["retour"]))
+        {
+            $req = "SELECT * FROM chapitre WHERE id_hist=:histoire";
+            $reponse = $BDD -> prepare($req);
+            $reponse ->execute(array(
+                "histoire" => $_GET["hist"],
+            ));
+            $text_choix="";
+            $text_chap="";
+            while($tuple = $reponse->fetch()){
+                if($tuple["id_ch_choix1"]==$_GET["ch"])
+                {
+                    $text_choix = $tuple["choix1"];
+                    $text_chap = $tuple["textes"];
+                }
+                else if($tuple["id_ch_choix2"]==$_GET["ch"])
+                {
+                    $text_choix = $tuple["choix2"];
+                    $text_chap = $tuple["textes"];
+                }
+                else if($tuple["id_ch_choix3"]==$_GET["ch"])
+                {
+                    $text_choix = $tuple["choix3"];
+                    $text_chap = $tuple["textes"];
+                }
+            }
+            $req = $BDD -> prepare("INSERT INTO historique_partie (id_hist, id_joueur, text_chapitre, text_choix_fait) VALUES (:hist, :joueur, :ch, :choix)");
+            $req -> execute(array(
+                    'hist' => $_GET['hist'],
+                    'joueur' => $_SESSION["login"],
+                    'ch' => $text_chap,
+                    'choix' => $text_choix,
+                    ));
 
-        $maReq = "SELECT * FROM chapitre WHERE identifiant=:iden and id_hist=:histoire";
+
+            $premReq = "SELECT point_de_vie FROM partie WHERE id_utilisateur=:id and id_hist=:hist";
+            $repp = $BDD -> prepare($premReq);
+            $repp -> execute(array(
+                "hist" => $_GET["hist"],
+                "id" => $_SESSION["login"],
+            ));
+            $line = $repp -> fetch();
+            $vie = $line['point_de_vie'];
+
+            if($vie <= 0)
+            {
+                redirect('finhistoire.php?perdu=true&vie=false&hist='.$_GET["hist"]);
+            }
+
+            $premReq = "SELECT modif_vie FROM chapitre WHERE id_hist=:hist";
+            $repp = $BDD -> prepare($premReq);
+            $repp -> execute(array(
+                "hist" => $_GET["hist"],
+                
+            ));
+            $line = $repp -> fetch();
+            $vie_modif = $line['modif_vie'];
+
+            $nouvellevie = $vie + $vie_modif;
+
+            $res = $BDD->prepare('UPDATE partie SET id_chap =:ch, point_de_vie=:vie WHERE id_utilisateur = :id and id_hist=:hist'); 
+            $res->execute(array(
+                'id' => $_SESSION["login"],
+                'vie' => $nouvellevie,
+                "hist" => $_GET["hist"],
+                "ch" => $_GET["ch"],
+            )); 
+           
+        }
+
+        $maReq = "SELECT * FROM chapitre WHERE id_chapitre=:iden and id_hist=:histoire";
         $reponse = $BDD -> prepare($maReq);
         $reponse ->execute(array(
             "iden"=>$_GET["ch"],
@@ -91,7 +177,9 @@ require_once "includes/functions.php";
         }
         else
         {
-            echo "FIN";
+            ?>
+            <button type="button" class="btn btn-info" onClick="window.location.href='finhistoire.php?perdu=true&hist=<?=$_GET["hist"]?>';">Recapitulatif histoire</button>
+            <?php 
         }
         ?>
         
@@ -99,6 +187,7 @@ require_once "includes/functions.php";
 
         
         
+    </div>
     </div>
 
     <?php require_once "includes/scripts.php"; ?>

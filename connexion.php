@@ -6,7 +6,7 @@ session_start();
 if (!empty($_POST['login']) and !empty($_POST['mdp'])) {
     $login = $_POST['login'];
     $password = $_POST['mdp'];
-    $stmt = $BDD->prepare('select * from utilisateur where identifiant=? and mdp=?');
+    $stmt = $BDD->prepare('select * from utilisateur where id_joueur=? and mdp=?');
     $stmt->execute(array($login, $password));
     if ($stmt->rowCount() == 1) {
         // Authentication successful

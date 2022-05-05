@@ -11,7 +11,7 @@
       <ul class="navbar-nav ml-auto">
         <?php if(isset($_SESSION["login"]))
         {
-          $premReq = "SELECT administrateur FROM utilisateur WHERE identifiant=:id";
+          $premReq = "SELECT administrateur FROM utilisateur WHERE id_joueur=:id";
           $repp = $BDD -> prepare($premReq);
           $repp -> execute(array("id" => $_SESSION["login"] ));
           $line = $repp -> fetch();

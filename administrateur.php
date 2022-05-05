@@ -1,4 +1,3 @@
-<?php session_start() ?>
 <?php include("includes/connect.php"); ?>
 <?php
 require_once "includes/functions.php";
@@ -25,14 +24,14 @@ require_once "includes/functions.php";
                 ?>
 
                 <p class='titre'>
-                    <a href="modification.php?id=<?= $tuple["identifiant"] ?>">  <!-- Modification -->
+                    <a href="modification.php?id=<?= $tuple["hist_id"] ?>">  <!-- Modification -->
                         <img src="includes/crayon.png" id="logo">
                     </a> 
                     
                     <?php 
                     if($tuple["cache"]==0)
                     {?>
-                        <a href="cacher.php?id=<?= $tuple["identifiant"] ?>">  <!-- Cacher -->
+                        <a href="cacher.php?id=<?= $tuple["hist_id"] ?>">  <!-- Cacher -->
                             <img src="includes/closedeye.png" id="logo">
                         </a> 
                     
@@ -40,7 +39,7 @@ require_once "includes/functions.php";
                     }
                     else if($tuple["cache"]==1)
                     {?>
-                        <a href="afficher.php?id=<?= $tuple["identifiant"] ?>">  <!-- Rendre visible -->
+                        <a href="afficher.php?id=<?= $tuple["hist_id"] ?>">  <!-- Rendre visible -->
                             <img src="includes/eye.png" id="logo">  
                         </a> 
                     <?php
@@ -49,10 +48,10 @@ require_once "includes/functions.php";
                 
                     <?= $tuple["titre"] ?> <!-- Titre de l'histoire -->
                     
-                    <a href="statistiques.php?id=<?= $tuple["identifiant"] ?>">  <!-- Page statisqtiques -->
+                    <a href="statistiques.php?id=<?= $tuple["hist_id"] ?>">  <!-- Page statisqtiques -->
                         <img src="includes/charts.png" id="logo">
                     </a>  
-                    <a href="suppression.php?id=<?= $tuple["identifiant"] ?>">
+                    <a href="suppression.php?id=<?= $tuple["hist_id"] ?>">
                         <img src="includes/poubelle.png" id="logo"> <!-- Supprimer -->
                     </a>
                 </p>

@@ -1,4 +1,3 @@
-<?php session_start() ?>
 <?php include("includes/connect.php"); ?>
 <?php
 require_once "includes/functions.php";
@@ -9,22 +8,20 @@ require_once "includes/functions.php";
 
 <?php require_once "includes/head.php"; 
 
-if(!empty($_POST["nom"])&&!empty($_POST["resume"]))
-            {   
-                $maReq = $BDD -> prepare("INSERT INTO histoire (titre, resumer) VALUES (:title, :resumer)");
+if(!empty($_POST["nom"])&&!empty($_POST["resume"])&&!empty($_POST["vie"]))
+            {   $maReq = $BDD -> query("SELECT COUNT(hist_id) as nb FROM histoire");
+                $data = $maReq->fetch();
+                echo $data['nb'];
+                $nb = $data['nb'];
+
+                $maReq = $BDD -> prepare("INSERT INTO histoire (hist_id, titre, resumer, nb_vie_dbt) VALUES (:id, :title, :resumer, :nbvie)");
                 $maReq -> execute(array(
+                    'id' => $nb+1,
                     'title' => $_POST["nom"],
                     'resumer' => $_POST["resume"],
+                    'nbvie' => $_POST["vie"],
                 ));
-
-
-                $maReq = "SELECT identifiant FROM histoire WHERE titre=:title";
-                $reponse = $BDD -> prepare($maReq);
-                $reponse ->execute(array("title"=>$_POST["nom"]));
-                $ligne = $reponse -> fetch($identifiant = $ligne["identifiant"]);
-                ?> 
-                <?php
-                redirect("creationchapitre.php?debut=1&histoire=".$ligne['identifiant']);
+                redirect("creationchapitre.php?debut=1&histoire=".$nb);
             }
         ?>
 
@@ -36,7 +33,7 @@ if(!empty($_POST["nom"])&&!empty($_POST["resume"]))
     </div>
     <div class="container" id="trophaut">
         
-        <h1>Creation d'une histoire</h1> <br/> <br/>
+        <h1>Creation d'une histoire</h1>
 
         <div class="formulaire">
             <form method="POST" action="creationhistoire.php"> <!--changer le fichier dans action-->
@@ -46,6 +43,9 @@ if(!empty($_POST["nom"])&&!empty($_POST["resume"]))
 
             <label for="resume">Entrez le resumé de votre histoire</label><br/>
             <input type="text"  name="resume"> <br/><br/>
+
+            <label for="vie">Combien de vie aura le personnage au début de l'histoire</label><br/>
+            <input type="text"  name="vie"> <br/><br/>
             
             <button type="submit" class="btn btn-default btn-primary"> Envoyer </button>          
         </div>

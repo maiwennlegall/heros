@@ -6,7 +6,7 @@
     
     if(isset($_GET['id'])) 
     {
-        $requete = "DELETE FROM histoire WHERE identifiant=:idhistoire"; #suppression de l'histoire
+        $requete = "DELETE FROM histoire WHERE hist_id=:idhistoire"; #suppression de l'histoire
         $response = $BDD->prepare($requete);
         $response->execute(array('idhistoire' => $_GET['id']));
 
