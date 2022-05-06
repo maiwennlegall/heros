@@ -13,11 +13,10 @@ require_once "includes/functions.php";
 <body>
     <div class="container">
         <?php require_once "includes/header.php"; ?>
-
+        <br/><br/><br/>
     </div>
     <?php
     
-
     if(!empty($_POST["resumer"]) && !empty($_POST["titre"]))
             {   
                 $res = $BDD->query('SELECT count(*) as nb from chapitre');
@@ -37,7 +36,6 @@ require_once "includes/functions.php";
                             'hist' => $_GET['histoire'],
                             'ecriture' => $_POST["resumer"],
                         ));
-                        redirect("creationchapitre.php?histoire=".$_GET['histoire']."&debut=0");
                 }
                 else
                 {
@@ -64,9 +62,12 @@ require_once "includes/functions.php";
                             'ecriture' => $_POST["resumer"],
                             ));
                         
-                        redirect("creationchapitre.php?histoire=".$_GET['histoire']."&debut=0");
                     }
                 }
+            }
+            else
+            {
+                ?> <br/><br/><br/> <?php echo "MJHGGYGUVYGV";
             }
     
 
@@ -86,7 +87,7 @@ require_once "includes/functions.php";
             <div class="container">
                 <h2> Ecrivez votre premier chapitre </h2>
             
-            <div>
+            </div>
                 <?php 
         }
         else {
@@ -126,13 +127,13 @@ require_once "includes/functions.php";
         <div class="formulaire">
             <form method="POST" action="creationchapitre.php?histoire=<?=$_GET['histoire']?>&debut=0">
 
-            <label for="title">Titre de votre chapitre</label>
+            <label for="titre">Titre de votre chapitre</label>
             <input type="text" name="titre"> <br/><br/>
 
             <textarea name="resumer" cols="50" rows="7" placeholder="Texte de votre chapitre"></textarea> <br/><br/>
 
             <label for="vie">Modification du nombre de vie (+1, -1...)</label>
-            <input type="number"  name="vie"> <br/><br/>
+            <input type="number"  name="vie" value="0"> <br/><br/>
 
             <label for="ch1">Choix n°1</label>
             <input type="text"  name="ch1"> <br/><br/>
@@ -142,23 +143,49 @@ require_once "includes/functions.php";
 
             <label for="ch3">Choix n°3</label>
             <input type="text"  name="ch3"> 
+<!--
+            <label for="title">Titre de votre chapitre</label>
+            <input type="text" name="titre"> <br/><br/>
 
+            <textarea name="resumer" cols="50" rows="7">Texte de votre chapitre</textarea> <br/><br/>
+            
+
+            <label for="ch1">Choix n°1</label>
+            <input type="text"  name="ch1"> <br/><br/>
+
+            <label for="ch2">Choix n°2</label>
+            <input type="text"  name="ch2"> <br/><br/>
+
+            <label for="ch3">Choix n°3</label>
+            <input type="text"  name="ch3"> <br/><br/>
+
+            <label for="vie">Modification du nombre de vie (+1, -1...)</label>
+            <input type="number"  name="vie"> <br/><br/>
+
+            <label for="fin"> Cochez si cela constitue une fin </label>
+            <input type="radio" name="fin"> </br>
+
+            <button type="submit" class="btn btn-default btn-primary"> Chapitre fait ! </button>  -->
+
+            
             <fieldset>
                 <legend>Cochez si cela constitue une fin</legend>
 
                 <div>
-                <input type="radio" id="positive" name="fin" value="Fin positive">
+                <input type="radio" id="positive" name="fin" value="Fin_positive">
                         
                 <label for="positive">Fin positive</label>
                 </div>
 
                 <div>
-                <input type="radio" id="negative" name="fin" value="Fin negative">
+                <input type="radio" id="negative" name="fin" value="Fin_negative">
                 <label for="negative">Fin negative</label>
                 </div>
             </fieldset>
-            
-            <button type="submit" class="btn btn-default btn-primary"> Chapitre fait ! </button>  
+    
+
+
+            <input type="submit" class="btn btn-default btn-primary"/>
             <br/><br/><br/><br/>          
         </div>
     </div>

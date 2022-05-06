@@ -144,6 +144,7 @@ require_once "includes/functions.php";
         $c1 = $ligne["id_ch_choix1"];
         $c2 = $ligne["id_ch_choix2"];
         $c3 = $ligne["id_ch_choix3"];
+        $fin = $ligne["type_fin"];
     ?>
     <div class="container" id="trophaut">
         
@@ -177,8 +178,17 @@ require_once "includes/functions.php";
         }
         else
         {
+            echo $fin;
+            if($fin=="Fin_negative")
+            {
+                $fin = true;
+            }
+            else
+            {
+                $fin = false;
+            }
             ?>
-            <button type="button" class="btn btn-info" onClick="window.location.href='finhistoire.php?perdu=true&hist=<?=$_GET["hist"]?>';">Recapitulatif histoire</button>
+            <button type="button" class="btn btn-info" onClick="window.location.href='finhistoire.php?perdu=<?=$fin?>&hist=<?=$_GET["hist"]?>';">Recapitulatif histoire</button>
             <?php 
         }
         ?>

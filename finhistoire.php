@@ -33,6 +33,11 @@ require_once "includes/functions.php";
                 <?php
             }
         }
+        else
+        {
+            ?> <h2> BRAVO ! Vous avez gagné ! </h2>
+            <?php
+        }
     ?>
     <h3> Récapitulatif de votre partie </h3>
     <div class="container">
