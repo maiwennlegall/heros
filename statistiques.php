@@ -32,8 +32,10 @@ require_once "includes/functions.php";
                 }
                 else
                 {
-                    $poucentage_reussite=$tuple["nb_gagne"] / $tuple["nb_joue"] * 100; #vérifier les divisions entières
+                    $poucentage_reussite=$tuple["nb_gagne"] / $tuple["nb_joue"] * 100; 
                     $pourcentage_mort = $tuple["nb_perdue"] / $tuple["nb_joue"] * 100;  
+                    $poucentage_reussite = number_format($poucentage_reussite,2);
+                    $pourcentage_mort = number_format($pourcentage_mort,2);
                 ?>
                     <p>L'histoire a été jouée <?=$tuple["nb_joue"]?> fois. <br/>
                     Le pourcentage de réussite est de <?=$poucentage_reussite?>%. <br/>
