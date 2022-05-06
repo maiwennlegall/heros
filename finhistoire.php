@@ -60,11 +60,7 @@ require_once "includes/functions.php";
             $requete = $BDD->prepare('UPDATE histoire SET nb_gagne=:newnb_gagne WHERE hist_id=:idhistoire');
             $requete->execute(array('newnb_gagne' => $newnbgagne,'idhistoire'=> $_GET["hist"]));
         }
-        else
-        {
-            ?> <h2> BRAVO ! Vous avez gagné ! </h2>
-            <?php
-        }
+        
     ?>
     <h3> Récapitulatif de votre partie </h3>
     <div class="container">
