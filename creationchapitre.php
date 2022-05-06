@@ -147,13 +147,13 @@ require_once "includes/functions.php";
                 <legend>Cochez si cela constitue une fin</legend>
 
                 <div>
-                <input type="radio" id="positive" name="fin" value="Fin positive">
+                <input type="radio" id="positive" name="fin" value="Fin_positive">
                         
                 <label for="positive">Fin positive</label>
                 </div>
 
                 <div>
-                <input type="radio" id="negative" name="fin" value="Fin negative">
+                <input type="radio" id="negative" name="fin" value="Fin_negative">
                 <label for="negative">Fin negative</label>
                 </div>
             </fieldset>
