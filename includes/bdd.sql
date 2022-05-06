@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 05 mai 2022 à 23:01
+-- Généré le : ven. 06 mai 2022 à 15:56
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.4
 
@@ -12,8 +12,10 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 --
--- Base de données : `storyofyourlife`
+-- Base de données : `oledur`
 --
+CREATE DATABASE IF NOT EXISTS `oledur` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `oledur`;
 
 -- --------------------------------------------------------
 
@@ -21,8 +23,8 @@ SET time_zone = "+00:00";
 -- Structure de la table `chapitre`
 --
 
-CREATE TABLE `chapitre` (
-  `id_chapitre` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `chapitre` (
+  `id_chapitre` int(11) NOT NULL AUTO_INCREMENT,
   `titre` varchar(30) NOT NULL,
   `id_hist` int(11) NOT NULL,
   `type_fin` int(11) DEFAULT NULL,
@@ -33,24 +35,23 @@ CREATE TABLE `chapitre` (
   `choix1` text DEFAULT NULL,
   `choix2` text DEFAULT NULL,
   `choix3` text DEFAULT NULL,
-  `textes` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `textes` text NOT NULL,
+  PRIMARY KEY (`id_chapitre`)
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `chapitre`
 --
 
 INSERT INTO `chapitre` (`id_chapitre`, `titre`, `id_hist`, `type_fin`, `modif_vie`, `id_ch_choix1`, `id_ch_choix2`, `id_ch_choix3`, `choix1`, `choix2`, `choix3`, `textes`) VALUES
-(1, 'aaaaaaaaaaaaa', 1, NULL, -2, 2, 3, 4, 'poopop', 'nono', 'ouiiiiiiiiiiiii', 'dbt'),
-(2, 'oui', 1, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'Texte de votre chapitre'),
-(3, 'n', 1, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'Texte de votre chapitre'),
-(4, 'ouih', 1, NULL, 2, 5, 6, 7, 'oui', 'no', 'pop', 'Texte de votre chapitre'),
-(5, 'pou', 1, NULL, -1, 8, 9, 10, 'jouui', 'pop', 'non', 'Texte de votre chapitre'),
-(6, 'jou', 1, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'Texte de votre chapitre'),
-(7, 'lol', 1, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'Texte de votre chapitre'),
-(8, 'jhu', 1, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'Texte de votre chapitre'),
-(9, 'ju', 1, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'Texte de votre chapitre'),
-(10, 'hhui', 1, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'Texte de votre chapitre');
+(1, 'test', 14, NULL, 0, 2, 3, 4, 'un', 'deux', 'trois', 'prout'),
+(2, 'mais', 14, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'pourqioi'),
+(3, 'oh', 14, NULL, 0, 5, 6, 7, 'ça', 'marche', 'lol', 'please'),
+(4, 'oh', 14, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'nini'),
+(5, 'putan', 14, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'jbvjnbe'),
+(6, 'ftgyhujiko', 14, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'fgvhjkl'),
+(7, 'poiu', 14, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'lkjiuytfr'),
+(8, 'poiu', 14, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'lkjiuytfr');
 
 -- --------------------------------------------------------
 
@@ -58,7 +59,7 @@ INSERT INTO `chapitre` (`id_chapitre`, `titre`, `id_hist`, `type_fin`, `modif_vi
 -- Structure de la table `histoire`
 --
 
-CREATE TABLE `histoire` (
+CREATE TABLE IF NOT EXISTS `histoire` (
   `hist_id` int(11) NOT NULL,
   `titre` varchar(30) NOT NULL,
   `cache` int(11) NOT NULL DEFAULT 1,
@@ -66,7 +67,8 @@ CREATE TABLE `histoire` (
   `nb_joue` int(11) NOT NULL DEFAULT 0,
   `nb_gagne` int(11) NOT NULL DEFAULT 0,
   `nb_perdue` int(11) NOT NULL DEFAULT 0,
-  `resumer` text NOT NULL
+  `resumer` text NOT NULL,
+  PRIMARY KEY (`hist_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -74,8 +76,7 @@ CREATE TABLE `histoire` (
 --
 
 INSERT INTO `histoire` (`hist_id`, `titre`, `cache`, `nb_vie_dbt`, `nb_joue`, `nb_gagne`, `nb_perdue`, `resumer`) VALUES
-(1, 'test', 0, 4, 0, 0, 0, 'je test'),
-(2, 'mdr', 1, 8, 0, 0, 0, 'on rigole de fou');
+(14, 'bordel', 0, 8, 0, 0, 0, 'testons');
 
 -- --------------------------------------------------------
 
@@ -83,20 +84,23 @@ INSERT INTO `histoire` (`hist_id`, `titre`, `cache`, `nb_vie_dbt`, `nb_joue`, `n
 -- Structure de la table `historique_partie`
 --
 
-CREATE TABLE `historique_partie` (
-  `id_historique` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `historique_partie` (
+  `id_historique` int(11) NOT NULL AUTO_INCREMENT,
   `id_hist` int(11) NOT NULL,
   `id_joueur` varchar(20) NOT NULL,
   `text_chapitre` text NOT NULL,
-  `text_choix_fait` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `text_choix_fait` text NOT NULL,
+  PRIMARY KEY (`id_historique`),
+  KEY `cle_etr` (`id_joueur`),
+  KEY `cle_etrangerebis` (`id_hist`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `historique_partie`
 --
 
 INSERT INTO `historique_partie` (`id_historique`, `id_hist`, `id_joueur`, `text_chapitre`, `text_choix_fait`) VALUES
-(8, 1, 'administrateur', 'dbt', 'ouiiiiiiiiiiiii');
+(18, 14, 'administrateur', 'prout', 'deux');
 
 -- --------------------------------------------------------
 
@@ -104,22 +108,24 @@ INSERT INTO `historique_partie` (`id_historique`, `id_hist`, `id_joueur`, `text_
 -- Structure de la table `partie`
 --
 
-CREATE TABLE `partie` (
-  `id_partie` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `partie` (
+  `id_partie` int(11) NOT NULL AUTO_INCREMENT,
   `id_utilisateur` varchar(20) NOT NULL,
   `id_hist` int(11) NOT NULL,
   `point_de_vie` int(11) NOT NULL,
   `id_chap` int(11) NOT NULL,
-  `etat_fin` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `etat_fin` int(11) NOT NULL,
+  PRIMARY KEY (`id_partie`),
+  KEY `clee` (`id_chap`),
+  KEY `key` (`id_hist`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `partie`
 --
 
 INSERT INTO `partie` (`id_partie`, `id_utilisateur`, `id_hist`, `point_de_vie`, `id_chap`, `etat_fin`) VALUES
-(2, '0', 1, -2, 8, 1),
-(3, 'administrateur', 1, 2, 4, 0);
+(4, 'administrateur', 14, 8, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -127,10 +133,11 @@ INSERT INTO `partie` (`id_partie`, `id_utilisateur`, `id_hist`, `point_de_vie`, 
 -- Structure de la table `utilisateur`
 --
 
-CREATE TABLE `utilisateur` (
+CREATE TABLE IF NOT EXISTS `utilisateur` (
   `id_joueur` varchar(20) NOT NULL,
   `mdp` varchar(20) NOT NULL,
-  `administrateur` int(11) NOT NULL
+  `administrateur` int(11) NOT NULL,
+  PRIMARY KEY (`id_joueur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -140,67 +147,6 @@ CREATE TABLE `utilisateur` (
 INSERT INTO `utilisateur` (`id_joueur`, `mdp`, `administrateur`) VALUES
 ('administrateur', 'baba', 1),
 ('pipou', 'lalala', 0);
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `chapitre`
---
-ALTER TABLE `chapitre`
-  ADD PRIMARY KEY (`id_chapitre`),
-  ADD KEY `cle_etrangere` (`id_hist`);
-
---
--- Index pour la table `histoire`
---
-ALTER TABLE `histoire`
-  ADD PRIMARY KEY (`hist_id`);
-
---
--- Index pour la table `historique_partie`
---
-ALTER TABLE `historique_partie`
-  ADD PRIMARY KEY (`id_historique`),
-  ADD KEY `cle_etr` (`id_joueur`),
-  ADD KEY `cle_etrangerebis` (`id_hist`);
-
---
--- Index pour la table `partie`
---
-ALTER TABLE `partie`
-  ADD PRIMARY KEY (`id_partie`),
-  ADD KEY `clee` (`id_chap`),
-  ADD KEY `key` (`id_hist`);
-
---
--- Index pour la table `utilisateur`
---
-ALTER TABLE `utilisateur`
-  ADD PRIMARY KEY (`id_joueur`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `chapitre`
---
-ALTER TABLE `chapitre`
-  MODIFY `id_chapitre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
-
---
--- AUTO_INCREMENT pour la table `historique_partie`
---
-ALTER TABLE `historique_partie`
-  MODIFY `id_historique` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT pour la table `partie`
---
-ALTER TABLE `partie`
-  MODIFY `id_partie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Contraintes pour les tables déchargées
