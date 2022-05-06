@@ -32,6 +32,33 @@ require_once "includes/functions.php";
                 <h3> Vous n'aviez plus aucune vie ! </h3>
                 <?php
             }
+
+            $req = "SELECT nb_perdue FROM histoire WHERE hist_id=:histoire";
+            $reponse = $BDD -> prepare($req);
+            $reponse ->execute(array(
+                "histoire" => $_GET["hist"],
+            ));
+            $nbperdue = $reponse -> fetch();
+            $newnbperdue = $nbperdue["nb_perdue"] + 1;
+
+            $requete = $BDD->prepare('UPDATE histoire SET nb_perdue=:newnb_perdue WHERE hist_id=:idhistoire');
+            $requete->execute(array('newnb_perdue' => $newnbperdue,'idhistoire'=> $_GET["hist"]));
+            
+        }
+        else
+        {
+            ?><h2> BRAVO! Vous avez gagné ! </h2>
+            <?php
+            $req = "SELECT nb_gagne FROM histoire WHERE hist_id=:histoire";
+            $reponse = $BDD -> prepare($req);
+            $reponse ->execute(array(
+                "histoire" => $_GET["hist"],
+            ));
+            $nbgagne = $reponse -> fetch();
+            $newnbgagne = $nbgagne["nb_gagne"] + 1;
+
+            $requete = $BDD->prepare('UPDATE histoire SET nb_gagne=:newnb_gagne WHERE hist_id=:idhistoire');
+            $requete->execute(array('newnb_gagne' => $newnbgagne,'idhistoire'=> $_GET["hist"]));
         }
         else
         {
