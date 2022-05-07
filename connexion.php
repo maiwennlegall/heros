@@ -11,7 +11,7 @@ if (!empty($_POST['login']) and !empty($_POST['mdp'])) {
     if ($stmt->rowCount() == 1) {
         // Authentication successful
         $_SESSION['login'] = $login;
-        redirect("accueil.php");
+        redirect("index.php");
     }
     else {
         $error = "Utilisateur non reconnu";

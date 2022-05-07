@@ -3,7 +3,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="test">
     <img src="includes/crown.png" id="logo" alt="logo du site représentant une couronne dorée">
-    <a class="navbar-brand" href="../../heros/accueil.php" id="test2">Story of your life</a>
+    <a class="navbar-brand" href="../index.php" id="test2">Story of your life</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -18,10 +18,10 @@
           if($line['administrateur']!=0)
           {
             ?> <li class="nav-item">
-            <a class="nav-link" href="../../heros/creationhistoire.php" id="test4">Création histoire</a>
+            <a class="nav-link" href="../creationhistoire.php" id="test4">Création histoire</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="../../heros/administrateur.php" id="test4">Administrateur</a>
+            <a class="nav-link" href="../administrateur.php" id="test4">Administrateur</a>
             </li>
             <?php
           }
@@ -32,11 +32,11 @@
           <?php if(isset($_SESSION["login"]))
           { 
             
-            ?> <a class="nav-link" href="../../heros/deconnexion.php" id="test3" > Deconnexion de <?php echo $_SESSION["login"];
+            ?> <a class="nav-link" href="../deconnexion.php" id="test3" > Deconnexion de <?php echo $_SESSION["login"];
           }
           else
           {
-            ?> <a class="nav-link" href="../../heros/connexion.php" id="test3" > Connexion <?php
+            ?> <a class="nav-link" href="../heros/connexion.php" id="test3" > Connexion <?php
           }
           ?>
           </a>

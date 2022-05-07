@@ -117,7 +117,7 @@ require_once "includes/functions.php";
             else {
                 $res = $BDD->prepare('UPDATE histoire SET cache = 0 WHERE hist_id = :id'); 
                 $res->execute(array('id' => $_GET['histoire']));  
-                redirect('accueil.php'); 
+                redirect('index.php'); 
             }
             
         }
