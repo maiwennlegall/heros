@@ -41,9 +41,7 @@ function premier_ch_non_fini() {
     $response->execute(array($_GET['histoire']));
         
     while($tuple = $response->fetch()) {
-        $newRequete = "SELECT * FROM chapitre WHERE id_hist=?";
-        $res = $BDD->prepare($newRequete);
-        $res->execute(array($_GET['histoire']));
+        
 
         $test = false;
         $valeur = $tuple['id_ch_choix1'];
@@ -52,19 +50,30 @@ function premier_ch_non_fini() {
             $test=true;
         else
         {
+            $newRequete = "SELECT * FROM chapitre WHERE id_hist=?";
+            $res = $BDD->prepare($newRequete);
+            $res->execute(array($_GET['histoire']));
+            $pasun = false;
+            $pasundeux = false;
             while($newtuple = $res->fetch()){ 
-                if($tuple['id_ch_choix1']==$newtuple['id_chapitre'])
-                {
-                    $valeur = $tuple['id_ch_choix2'];
-                    $text_choix = $tuple['choix2'];
-                }
-                if($tuple['id_ch_choix2']==$newtuple['id_chapitre'])
-                {
-                    $valeur = $tuple['id_ch_choix3'];
-                    $text_choix = $tuple['choix3'];
-                }
-                if($tuple['id_ch_choix3']==$newtuple['id_chapitre'])
-                     $test = true;
+                    echo "valeur".$valeur."avec".$newtuple['id_chapitre']."et".$tuple['id_ch_choix1'].",".$tuple['id_ch_choix2']."".$tuple['id_ch_choix3']."puis";
+                    if($tuple['id_ch_choix1']==$newtuple['id_chapitre'] && !$pasun && !$pasundeux)
+                    {
+                        $valeur = $tuple['id_ch_choix2'];
+                        $text_choix = $tuple['choix2'];
+                    }
+                    if($tuple['id_ch_choix2']==$newtuple['id_chapitre'] && !$pasundeux)
+                    {
+                        $valeur = $tuple['id_ch_choix3'];
+                        $text_choix = $tuple['choix3'];
+                        $pasun = true;
+                    }
+                    if($tuple['id_ch_choix3']==$newtuple['id_chapitre'])
+                    {
+                        $test = true;
+                        $pasundeux = true;
+                    }
+                
             }            
         }
         if($test == false)

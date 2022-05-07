@@ -15,61 +15,125 @@ require_once "includes/functions.php";
         <br/><br/><br/>
     </div>
     <?php
-    
-    if(!empty($_POST["resumer"]) && !empty($_POST["titre"]))
-    {   
-        $res = $BDD->query('SELECT count(*) as nb from chapitre');
-        $data = $res->fetch();                  
-        $nb_chapitres_faits = $data['nb'];
+    $reqq = 'SELECT count(*) as nb from chapitre WHERE id_hist=:hist'; 
+    $resp = $BDD->prepare($reqq);
+    $resp -> execute(array(
+        "hist" => $_GET["histoire"]
+    ));
+    $data = $resp->fetch();                  
+    $nb_chapitres_faits = $data['nb'];
 
-        /*$res = $BDD->query('SELECT count(id_ch_choix1) as nbr from chapitre WHERE id_ch_choix1!="NULL"');
-        $data = $res->fetch();                 
-        $nb_chapitres_pas_fin = $data['nbr'];*/
-                
-        if(isset($_POST['fin']))
+    $reqq = 'SELECT count(id_ch_choix1) as nbr from chapitre WHERE id_ch_choix1!=:choix and id_hist=:hist'; 
+    $resp = $BDD->prepare($reqq);
+    $resp -> execute(array(
+        "hist" => $_GET["histoire"],
+        "choix" => "NULL",
+    ));
+    $data = $resp->fetch();                             
+    $nb_chapitres_pas_fin = $data['nbr'];
+
+    if(isset($_POST["chapitre_precedent"]) && $_POST["chapitre_precedent"]!="Fais ton choix")
         {
-            if($_POST['fin']=="Fin_positive")
+            $factice = $nb_chapitres_faits+1;
+            $resultat = $_POST['chapitre_precedent'];
+            echo $_POST['chapitre_precedent'];
+
+            $maReq = "SELECT id_chapitre FROM chapitre WHERE titre =:title";
+            $repp = $BDD -> prepare($maReq);
+            $repp -> execute(array(
+                "title" => $resultat
+            ));
+            $data = $repp->fetch();
+            $ch_prec = $data["id_chapitre"];
+            echo $ch_prec;
+
+            $maReq = "SELECT * FROM chapitre WHERE (id_ch_choix1= :ch or id_ch_choix2 =:ch or id_ch_choix3 = :ch) and id_hist=:hist";
+            $repp = $BDD -> prepare($maReq);
+            $repp -> execute(array(
+                "ch" => $factice,
+                "hist" => $_GET["histoire"],
+            ));
+            
+            $tuple = $repp->fetch();
+            if($factice==$tuple["id_ch_choix1"])
             {
-                $fin=0;
+                $res = $BDD->prepare('UPDATE chapitre SET id_ch_choix1 =:suivant, id_ch_choix3 =:trois, id_ch_choix2 =:deux  WHERE id_ch_choix1= :ch and id_hist=:hist'); 
+                $res->execute(array(
+                'suivant' => $ch_prec,
+                "trois" => $tuple["id_ch_choix2"],
+                'deux' => $tuple["id_ch_choix1"],
+                "ch" => $factice,
+                "hist" => $_GET["histoire"],
+                )); 
             }
-            else
+            else if($factice==$tuple["id_ch_choix2"])
             {
-                $fin=1;
+                $res = $BDD->prepare('UPDATE chapitre SET id_ch_choix3 =:trois, id_ch_choix2 =:suivant WHERE id_ch_choix2= :ch and id_hist=:hist'); 
+                $res->execute(array(
+                    "trois" => $tuple["id_ch_choix2"],
+                    'suivant' => $ch_prec,
+                    "ch" => $factice,
+                    "hist" => $_GET["histoire"],
+                )); 
             }
-            $maReq = $BDD -> prepare("INSERT INTO chapitre (id_chapitre, titre, id_hist, type_fin, textes) VALUES (:id, :title, :hist, :fin, :ecriture)");
-            $maReq -> execute(array(
-                    'id' => $nb_chapitres_faits+1,
-                    'title' => $_POST['titre'],
-                    'hist' => $_GET['histoire'],
-                    'fin' => $fin,
-                    'ecriture' => $_POST["resumer"],
-                ));
+            else if($factice==$tuple["id_ch_choix3"])
+            {
+                $res = $BDD->prepare('UPDATE chapitre SET id_ch_choix3 =:suivant WHERE id_ch_choix3= :ch and id_hist=:hist'); 
+                $res->execute(array(
+                    'suivant' => $ch_prec,
+                    "ch" => $factice,
+                    "hist" => $_GET["histoire"],
+                )); 
+            }
+            redirect("creationchapitre.php?histoire=".$_GET['histoire']."&debut=".$_GET['debut']);
         }
+    
+    else if(!empty($_POST["resumer"]) && !empty($_POST["titre"]) &&$_GET["debut"]==0)
+    {   
+        if(isset($_POST['fin']))
+            {
+                if($_POST['fin']=="Fin_positive")
+                {
+                    $fin=0;
+                }
+                else
+                {
+                    $fin=1;
+                }
+                $maReq = $BDD -> prepare("INSERT INTO chapitre (id_chapitre, titre, id_hist, type_fin, textes) VALUES (:id, :title, :hist, :fin, :ecriture)");
+                $maReq -> execute(array(
+                        'id' => $nb_chapitres_faits+1,
+                        'title' => $_POST['titre'],
+                        'hist' => $_GET['histoire'],
+                        'fin' => $fin,
+                        'ecriture' => $_POST["resumer"],
+                    ));
+            }
         else
         {
-            if(empty($_POST['ch1'])||empty($_POST['ch2'])||empty($_POST['ch3']))
-            {
-                //$error = "Vous n'avez pas tout rempli !";
-                redirect("creationchapitre.php?histoire=".$_GET['histoire']."&debut=".$_GET['debut']);
-            }
-            else
-            {
-                $maReq = $BDD -> prepare("INSERT INTO chapitre (id_chapitre, titre, id_hist, modif_vie, id_ch_choix1, id_ch_choix2, id_ch_choix3, choix1, choix2, choix3, textes) VALUES (:id, :title, :hist, :vie, :id1, :id2, :id3, :t1, :t2, :t3, :ecriture)");
-                $maReq -> execute(array(
-                            'id' => $nb_chapitres_faits+1,
-                            'title' => $_POST['titre'],
-                            'hist' => $_GET['histoire'],
-                            'vie' => $_POST['vie'],
-                            'id1' => $nb_chapitres_faits+2,
-                            'id2' => $nb_chapitres_faits+3,
-                            'id3' => $nb_chapitres_faits+4,
-                            't1' => $_POST["ch1"],
-                            't2' => $_POST['ch2'],
-                            't3' => $_POST["ch3"],
+                if(empty($_POST['ch1'])||empty($_POST['ch2'])||empty($_POST['ch3']))
+                {
+                    //$error = "Vous n'avez pas tout rempli !";
+                    redirect("creationchapitre.php?histoire=".$_GET['histoire']."&debut=".$_GET['debut']);
+                }
+                else
+                {
+                    $maReq = $BDD -> prepare("INSERT INTO chapitre (id_chapitre, titre, id_hist, modif_vie, id_ch_choix1, id_ch_choix2, id_ch_choix3, choix1, choix2, choix3, textes) VALUES (:id, :title, :hist, :vie, :id1, :id2, :id3, :t1, :t2, :t3, :ecriture)");
+                    $maReq -> execute(array(
+                                'id' => $nb_chapitres_faits+1,
+                                'title' => $_POST['titre'],
+                                'hist' => $_GET['histoire'],
+                                'vie' => $_POST['vie'],
+                                'id1' => (($nb_chapitres_pas_fin+1)*3)-1,
+                                'id2' => (($nb_chapitres_pas_fin+1)*3),
+                                'id3' => (($nb_chapitres_pas_fin+1)*3)+1,
+                                't1' => $_POST["ch1"],
+                                't2' => $_POST['ch2'],
+                                't3' => $_POST["ch3"],
 
-                            'ecriture' => $_POST["resumer"],
-                            ));    
-            }
+                                'ecriture' => $_POST["resumer"],
+                                ));    
+                }
         }
     }
     else
@@ -103,6 +167,7 @@ require_once "includes/functions.php";
             <div class="container">
             <div class="row"> <?php
             if($valeur != null) {
+                echo $valeur;
                 ?> <div class="col"><h3> Texte du chapitre d'avant </h3> 
                 <br/>
                     <div class="container">
@@ -134,6 +199,30 @@ require_once "includes/functions.php";
         <div class="formulaire">
             <form method="POST" action="creationchapitre.php?histoire=<?=$_GET['histoire']?>&debut=0">
 
+            <?php 
+            if($_GET["debut"]==0)
+            {
+                ?>
+                <div class="container">
+                <label for="chapitre_deja_cree"> Vous souhaitez que le chapitre à gauche ait pour suite un chapitre déjà créé : </label>
+                <select name="chapitre_precedent" id="chapitre_deja_cree">
+                    <option selected="">Fais ton choix</option>
+                <?php
+                $value="";
+                $maReq = "SELECT * FROM chapitre WHERE id_hist=:hist_id";
+                $repp = $BDD -> prepare($maReq);
+                $repp -> execute(array(
+                    "hist_id" => $_GET["histoire"] ));
+                while($tuple = $repp->fetch()) 
+                {
+                    ?> <option value="<?=$tuple["id_chapitre"]?>"><?= $tuple["titre"];?></option> <?php
+                }
+                ?> 
+                </select>
+                </div> <br/>
+                <?php
+            }
+            ?>
             <label for="titre">Titre de votre chapitre</label>
             <input type="text" name="titre"> <br/><br/>
 
