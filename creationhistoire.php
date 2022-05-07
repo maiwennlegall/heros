@@ -13,10 +13,11 @@ if(!empty($_POST["nom"])&&!empty($_POST["resume"])&&!empty($_POST["vie"]))
                 $data = $maReq->fetch();
                 echo $data['nb'];
                 $nb = $data['nb'];
+                $nb = $nb+1;
 
                 $maReq = $BDD -> prepare("INSERT INTO histoire (hist_id, titre, resumer, nb_vie_dbt) VALUES (:id, :title, :resumer, :nbvie)");
                 $maReq -> execute(array(
-                    'id' => $nb+1,
+                    'id' => $nb,
                     'title' => $_POST["nom"],
                     'resumer' => $_POST["resume"],
                     'nbvie' => $_POST["vie"],
