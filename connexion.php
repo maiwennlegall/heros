@@ -1,22 +1,6 @@
 <?php require_once "includes/head.php";
 require_once "includes/functions.php";
 include("includes/connect.php"); 
-session_start();
-
-if (!empty($_POST['login']) and !empty($_POST['mdp'])) {
-    $login = $_POST['login'];
-    $password = $_POST['mdp'];
-    $stmt = $BDD->prepare('select * from utilisateur where id_joueur=? and mdp=?');
-    $stmt->execute(array($login, $password));
-    if ($stmt->rowCount() == 1) {
-        // Authentication successful
-        $_SESSION['login'] = $login;
-        redirect("index.php");
-    }
-    else {
-        $error = "Utilisateur non reconnu";
-    }
-}
 ?>
 
 <body>
@@ -24,6 +8,23 @@ if (!empty($_POST['login']) and !empty($_POST['mdp'])) {
         <?php require_once "includes/header.php"; ?>
 
     </div>
+
+    <?php
+    if (!empty($_POST['login']) and !empty($_POST['mdp'])) {
+    $login = $_POST['login'];
+    $password = $_POST['mdp'];
+    $stmt = $BDD->prepare('select * from utilisateur where id_joueur=? and mdp=?');
+    $stmt->execute(array($login, $password));
+        if ($stmt->rowCount() == 1) {
+            // Authentication successful
+            $_SESSION['login'] = $login;
+            redirect("index.php");
+        }
+        else {
+            $error = "Utilisateur non reconnu";
+        }
+    } ?>
+
         <br/> <br/><br/>
     <h1 class="text-center">Connexion</h1>
 <?php if (isset($error)) { ?>
