@@ -3,7 +3,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="test">
     <img src="includes/crown.png" id="logo" alt="logo du site représentant une couronne dorée">
-    <a class="navbar-brand" href=".../../heros/index.php" id="test2">Story of your life</a>
+    <a class="navbar-brand" href=".../../index.php" id="test2">Story of your life</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
