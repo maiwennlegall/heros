@@ -191,7 +191,6 @@ require_once "includes/functions.php";
         }
         else
         {
-            echo $fin;
             if($fin=="Fin_negative")
             {
                 $fin = true;

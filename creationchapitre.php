@@ -36,7 +36,6 @@ require_once "includes/functions.php";
         {
             $factice = $nb_chapitres_faits+1;
             $resultat = $_POST['chapitre_precedent'];
-            echo $_POST['chapitre_precedent'];
 
             $maReq = "SELECT id_chapitre FROM chapitre WHERE titre =:title";
             $repp = $BDD -> prepare($maReq);
@@ -45,7 +44,6 @@ require_once "includes/functions.php";
             ));
             $data = $repp->fetch();
             $ch_prec = $data["id_chapitre"];
-            echo $ch_prec;
 
             $maReq = "SELECT * FROM chapitre WHERE (id_ch_choix1= :ch or id_ch_choix2 =:ch or id_ch_choix3 = :ch) and id_hist=:hist";
             $repp = $BDD -> prepare($maReq);
@@ -138,7 +136,7 @@ require_once "includes/functions.php";
     }
     else
     {
-        ?> <br/><br/><br/> <?php echo "MJHGGYGUVYGV";
+        ?> <!-- ?? -->
     }
     
 
@@ -167,7 +165,6 @@ require_once "includes/functions.php";
             <div class="container">
             <div class="row"> <?php
             if($valeur != null) {
-                echo $valeur;
                 ?> <div class="col"><h3> Texte du chapitre d'avant </h3> 
                 <br/>
                     <div class="container">
