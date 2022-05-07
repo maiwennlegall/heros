@@ -40,9 +40,17 @@ require_once "includes/functions.php";
                     }
                 }
             }
+            ?> <h2>Commencer une nouvelle une histoire</h2> <?php
+        }
+        else
+        {
+            ?> <h2>Liste des histoires disponibles</h2> 
+            <p> Connectez vous pour pouvoir jouer ! </p>
+            <?php
         }
         ?> 
-        <h2>Commencer une nouvelle une histoire</h2> 
+        
+         
         <div class="container" id="psthist">
         <?php
             $maReq = "SELECT * FROM histoire";
