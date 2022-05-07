@@ -7,15 +7,6 @@
 {
     color:gold;
 }
-
-#test3
-{
-    color : white;
-}
-#test4
-{
-    color : white;
-}
 #corps
 {
     background-color:rgb(255, 240, 152);
@@ -67,12 +58,13 @@ button
     padding-top: 5px;
     padding-bottom: 5px;
     background-color: rgb(28, 84, 158);
-    border-color: rgb(28, 84, 158);
+    border-color: rgb(255, 240, 152);
     color :rgb(255, 240, 152);
 }
 button:hover, .btn_hover:hover/*marche pas...*/
 {
-    background-color: gold;
+    background-color: black;
+    color: white;
 }
 .btn_hover:active, button:active /*marche pas...*/
 {
@@ -86,6 +78,23 @@ fieldset
     margin-bottom: 50px;
     border : solid black 1px;
     text-align: center;
+}
+.nav-item a:hover, .navbar-brand:hover
+{
+    color: rgb(28, 84, 158) !important;
+    background-color: rgb(255, 230, 86);
+    border : solid rgb(28, 84, 158);
+}
+.nav-item a
+{
+    color: white !important;
+    background-color: rgb(28, 84, 158);
+    border-radius: 10%;
+    border : solid rgb(28, 84, 158);
+}
+.btn-primary
+{
+    size : 200px;
 }
 /*A revoir*/
 /*

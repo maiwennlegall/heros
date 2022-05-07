@@ -47,7 +47,7 @@ if(!empty($_POST["nom"])&&!empty($_POST["resume"])&&!empty($_POST["vie"]))
             <label for="vie">Combien de vie aura le personnage au début de l'histoire</label><br/>
             <input type="text"  name="vie"> <br/><br/>
             
-            <button type="submit" class="btn btn-default btn-primary"> Envoyer </button>          
+            <button type="submit" class="btn btn-default btn-primary btn-lg"> Envoyer </button>          
         </div>
     </div>
 
