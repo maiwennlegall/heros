@@ -32,11 +32,11 @@
           <?php if(isset($_SESSION["login"]))
           { 
             
-            ?> <a class="nav-link" href="../deconnexion.php"> Deconnexion de <?php echo $_SESSION["login"];
+            ?> <a class="nav-link" href="deconnexion.php"> Deconnexion de <?php echo $_SESSION["login"];
           }
           else
           {
-            ?> <a class="nav-link" href="../heros/connexion.php"> Connexion <?php
+            ?> <a class="nav-link" href="connexion.php"> Connexion <?php
           }
           ?>
           </a>
