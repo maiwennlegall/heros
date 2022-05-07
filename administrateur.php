@@ -24,36 +24,41 @@ require_once "includes/functions.php";
                 ?>
 
                 <p class='titre'>
-                    <a href="modification.php?id=<?= $tuple["hist_id"] ?>">  <!-- Modification -->
-                        <img src="includes/crayon.png" id="logo">
+                    <a href="modification.php?id=<?= $tuple["hist_id"] ?>" class="btn_admin">  <!-- Modification -->
+                        Modifier
+                        <img src="includes/crayon.png" class="logo" alt="dessin de crayon">
                     </a> 
-                    
+                     
                     <?php 
                     if($tuple["cache"]==0)
                     {?>
-                        <a href="cacher.php?id=<?= $tuple["hist_id"] ?>">  <!-- Cacher -->
-                            <img src="includes/closedeye.png" id="logo">
-                        </a> 
+                        <a href="cacher.php?id=<?= $tuple["hist_id"] ?>" class="btn_admin">  <!-- Cacher -->
+                            Masquer
+                            <img src="includes/closedeye.png" class="logo" alt="dessin d'oeil barré">
+                        </a>  
                     
                     <?php
                     }
                     else if($tuple["cache"]==1)
                     {?>
-                        <a href="afficher.php?id=<?= $tuple["hist_id"] ?>">  <!-- Rendre visible -->
-                            <img src="includes/eye.png" id="logo">  
-                        </a> 
+                        <a href="afficher.php?id=<?= $tuple["hist_id"] ?>" class="btn_admin">  <!-- Rendre visible -->
+                            Rendre visible
+                            <img src="includes/eye.png" class="logo" alt="dessin d'oeil">  
+                        </a>  
                     <?php
                     }?>
                     
                 
-                    <?= $tuple["titre"] ?> <!-- Titre de l'histoire -->
+                    <em>  <?= $tuple["titre"] ?> </em> <!-- Titre de l'histoire -->
                     
-                    <a href="statistiques.php?id=<?= $tuple["hist_id"] ?>">  <!-- Page statisqtiques -->
-                        <img src="includes/charts.png" id="logo">
-                    </a>  
-                    <a href="suppression.php?id=<?= $tuple["hist_id"] ?>">
-                        <img src="includes/poubelle.png" id="logo"> <!-- Supprimer -->
-                    </a>
+                    <a href="statistiques.php?id=<?= $tuple["hist_id"] ?>" class="btn_admin">  <!-- Page statisqtiques -->
+                        Statistiques
+                        <img src="includes/charts.png" class="logo" alt="dessin de graphique" >
+                    </a>   
+                    <a href="suppression.php?id=<?= $tuple["hist_id"] ?>" class="btn_admin">
+                        Supprimer
+                        <img src="includes/poubelle.png" class="logo" alt="dessin de poubelle"> <!-- Supprimer -->
+                    </a> 
                 </p>
             
                 <?php

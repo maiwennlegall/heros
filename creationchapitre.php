@@ -18,36 +18,36 @@ require_once "includes/functions.php";
     <?php
     
     if(!empty($_POST["resumer"]) && !empty($_POST["titre"]))
-            {   
-                $res = $BDD->query('SELECT count(*) as nb from chapitre');
-                $data = $res->fetch();                  
-                $nb_chapitres_faits = $data['nb'];
+    {   
+        $res = $BDD->query('SELECT count(*) as nb from chapitre');
+        $data = $res->fetch();                  
+        $nb_chapitres_faits = $data['nb'];
 
-                $res = $BDD->query('SELECT count(id_ch_choix1) as nbr from chapitre WHERE id_ch_choix1!="NULL"');
-                $data = $res->fetch();                 
-                $nb_chapitres_pas_fin = $data['nbr'];
+        $res = $BDD->query('SELECT count(id_ch_choix1) as nbr from chapitre WHERE id_ch_choix1!="NULL"');
+        $data = $res->fetch();                 
+        $nb_chapitres_pas_fin = $data['nbr'];
                 
-                if(isset($_POST['fin']))
-                {
-                    $maReq = $BDD -> prepare("INSERT INTO chapitre (id_chapitre, titre, id_hist, textes) VALUES (:id, :title, :hist, :ecriture)");
-                        $maReq -> execute(array(
-                            'id' => $nb_chapitres_faits+1,
-                            'title' => $_POST['titre'],
-                            'hist' => $_GET['histoire'],
-                            'ecriture' => $_POST["resumer"],
-                        ));
-                }
-                else
-                {
-                    if(empty($_POST['ch1'])||empty($_POST['ch2'])||empty($_POST['ch3']))
-                    {
-                        $error = "Vous n'avez pas tout rempli !";
-                        redirect("creationchapitre.php?histoire=".$_GET['histoire']."&debut=".$_GET['debut']);
-                    }
-                    else
-                    {
-                        $maReq = $BDD -> prepare("INSERT INTO chapitre (id_chapitre, titre, id_hist, modif_vie, id_ch_choix1, id_ch_choix2, id_ch_choix3, choix1, choix2, choix3, textes) VALUES (:id, :title, :hist, :vie, :id1, :id2, :id3, :t1, :t2, :t3, :ecriture)");
-                        $maReq -> execute(array(
+        if(isset($_POST['fin']))
+        {
+            $maReq = $BDD -> prepare("INSERT INTO chapitre (id_chapitre, titre, id_hist, textes) VALUES (:id, :title, :hist, :ecriture)");
+            $maReq -> execute(array(
+                    'id' => $nb_chapitres_faits+1,
+                    'title' => $_POST['titre'],
+                    'hist' => $_GET['histoire'],
+                    'ecriture' => $_POST["resumer"],
+                ));
+        }
+        else
+        {
+            if(empty($_POST['ch1'])||empty($_POST['ch2'])||empty($_POST['ch3']))
+            {
+                $error = "Vous n'avez pas tout rempli !";
+                redirect("creationchapitre.php?histoire=".$_GET['histoire']."&debut=".$_GET['debut']);
+            }
+            else
+            {
+                $maReq = $BDD -> prepare("INSERT INTO chapitre (id_chapitre, titre, id_hist, modif_vie, id_ch_choix1, id_ch_choix2, id_ch_choix3, choix1, choix2, choix3, textes) VALUES (:id, :title, :hist, :vie, :id1, :id2, :id3, :t1, :t2, :t3, :ecriture)");
+                $maReq -> execute(array(
                             'id' => $nb_chapitres_faits+1,
                             'title' => $_POST['titre'],
                             'hist' => $_GET['histoire'],
@@ -62,17 +62,17 @@ require_once "includes/functions.php";
                             'ecriture' => $_POST["resumer"],
                             ));
                         
-                    }
-                }
             }
-            else
-            {
-                ?> <br/><br/><br/> <?php echo "MJHGGYGUVYGV";
-            }
+        }
+    }
+    else
+    {
+        ?> <br/><br/><br/> <?php echo "MJHGGYGUVYGV";
+    }
     
 
 
-        ?>
+    ?>
 
     
     <div class="container" id="trophaut">
