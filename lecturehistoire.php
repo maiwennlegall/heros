@@ -58,9 +58,7 @@ require_once "includes/functions.php";
                 "hist" => $_GET["hist"],
                 "ch" => $_GET["ch"],
             )); 
-        }
-        else if(!isset($_GET["retour"]))
-        {
+
             $req = "SELECT nb_joue FROM histoire WHERE hist_id=:histoire";
             $reponse = $BDD -> prepare($req);
             $reponse ->execute(array(
@@ -71,6 +69,10 @@ require_once "includes/functions.php";
 
             $requete = $BDD->prepare('UPDATE histoire SET nb_joue=:newnb_joue WHERE hist_id=:idhistoire');
             $requete->execute(array('newnb_joue' => $newnbjoue,'idhistoire'=> $_GET["hist"]));
+        }
+        else if(!isset($_GET["retour"]))
+        {
+            
             
             
             
