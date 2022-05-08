@@ -18,7 +18,7 @@ require_once "includes/functions.php";
     <?php
         if(isset($_SESSION["login"]))
         {
-            ?> <h2>Reprendre une histoire</h2> <?php
+            
             $premReq = "SELECT COUNT(*) as nb FROM partie WHERE id_utilisateur=:id";
             $repp = $BDD -> prepare($premReq);
             $repp -> execute(array(
@@ -26,6 +26,7 @@ require_once "includes/functions.php";
             $line = $repp -> fetch();
             if($line['nb']!=0)
             {
+                ?> <h2>Reprendre une histoire</h2> <?php
                 $maReq = "SELECT * FROM partie, histoire WHERE id_hist=hist_id and id_utilisateur=:id";
                 $repp = $BDD -> prepare($maReq);
                 $repp -> execute(array(
@@ -53,31 +54,37 @@ require_once "includes/functions.php";
          
         <div class="container" id="psthist">
         <?php
+            $nb_hist_possible=0;
             $maReq = "SELECT * FROM histoire";
             $res = $BDD->query($maReq);
             while($tuple = $res->fetch()) {
-            if($tuple["cache"]==0)
-            {
-                if(isset($_SESSION["login"]))
+                if($tuple["cache"]==0)
                 {
-                    $test = $tuple["hist_id"];
-                    $maNewReq = "SELECT id_chapitre FROM chapitre WHERE id_hist=:histoire";
-                    $reponse = $BDD -> prepare($maNewReq);
-                    $reponse ->execute(array("histoire"=>$test));
-                    $ligne = $reponse -> fetch();
-                    $debut = $ligne["id_chapitre"];
-                    ?> <h2> <button type="button" class="btn_hover" onClick="window.location.href='lecturehistoire.php?hist=<?= $tuple["hist_id"] ?>&ch=<?=$debut?>&debut=true';"><?=$tuple["titre"]?></button>
-                       </h2> <?php
+                    $nb_hist_possible=$nb_hist_possible+1;
+                    if(isset($_SESSION["login"]))
+                    {
+                        $test = $tuple["hist_id"];
+                        $maNewReq = "SELECT id_chapitre FROM chapitre WHERE id_hist=:histoire";
+                        $reponse = $BDD -> prepare($maNewReq);
+                        $reponse ->execute(array("histoire"=>$test));
+                        $ligne = $reponse -> fetch();
+                        $debut = $ligne["id_chapitre"];
+                        ?> <h2> <button type="button" class="btn_hover" onClick="window.location.href='lecturehistoire.php?hist=<?= $tuple["hist_id"] ?>&ch=<?=$debut?>&debut=true';"><?=$tuple["titre"]?></button>
+                        </h2> <?php
+                    }
+                    else
+                    {
+                        ?> <h2> <?= $tuple["titre"] ?></h2> <?php
+                    }
+                    ?>
+                    <div class="container"> <?= $tuple["resumer"] ?> </div>
+                    <br/>
+                    <?php
                 }
-                else
-                {
-                    ?> <h2> <?= $tuple["titre"] ?></h2> <?php
-                }
-                ?>
-                <div class="container"> <?= $tuple["resumer"] ?> </div>
-                <br/>
-                <?php
             }
+            if($nb_hist_possible==0)
+            {
+                ?> <div class="container"> Il n'y a aucune histoire de disponible, revenez plus tard pour vivre de formidables aventures ! </div> <?php
             }
         ?>
         </div>
