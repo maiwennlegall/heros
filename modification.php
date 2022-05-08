@@ -69,7 +69,7 @@ require_once "includes/functions.php";
         ?>
         <p class="text-center">Modifier le chapitre: <?= $tuple["titre"] ?></p>
         <div class="text-center">
-        <form method="POST" action="enregistrermodifications.php?id=<?=$_GET['id']?>&idchap=<?=$tuple["identifiant"]?>" >
+        <form method="POST" action="enregistrermodifications.php?id=<?=$_GET['id']?>&idchap=<?=$tuple["id_chapitre"]?>" >
             
             <p>Modifier le texte</p>
             <textarea name="texte" cols="50" rows="7"><?= $tuple["textes"] ?></textarea> <br/><br/>
