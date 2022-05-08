@@ -67,11 +67,11 @@ require_once "includes/functions.php";
         while($tuple = $requete->fetch()) 
         {
         ?>
-        <p class="text-center">Modifier le chapitre: <?= $tuple["titre"] ?></p>
+        <br/>
+        <p class="text-center titre" >Modifier le chapitre: <?= $tuple["titre"] ?></p>
         <div class="text-center">
         <form method="POST" action="enregistrermodifications.php?id=<?=$_GET['id']?>&idchap=<?=$tuple["id_chapitre"]?>" >
             
-            <p>Modifier le texte</p>
             <textarea name="texte" cols="50" rows="7"><?= $tuple["textes"] ?></textarea> <br/><br/>
             <p>Modifier les choix</p>
             <label for="nom">Choix 1 : </label>  <br/><br/>
