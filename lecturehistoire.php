@@ -118,7 +118,7 @@ require_once "includes/functions.php";
 
             if($vie <= 0)
             {
-                redirect('finhistoire.php?perdu=true&vie=false&hist='.$_GET["hist"]);
+                redirect('finhistoire.php?perdu=1&vie=false&hist='.$_GET["hist"]);
             }
 
             $premReq = "SELECT modif_vie FROM chapitre WHERE id_hist=:hist";
@@ -191,14 +191,6 @@ require_once "includes/functions.php";
         }
         else
         {
-            if($fin=="Fin_negative")
-            {
-                $fin = true;
-            }
-            else
-            {
-                $fin = false;
-            }
             ?>
             <button type="button" class="btn btn-info" onClick="window.location.href='finhistoire.php?perdu=<?=$fin?>&hist=<?=$_GET["hist"]?>';">Recapitulatif histoire</button>
             <?php 

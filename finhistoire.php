@@ -22,7 +22,7 @@ require_once "includes/functions.php";
     <div class="container" id="corps">
     <h1> Fin de votre histoire <h1>
     <?php
-        if($_GET["perdu"]==true)
+        if($_GET["perdu"]==1)
         {
             ?> <h2> Vous avez perdu... </h2>
             <?php
