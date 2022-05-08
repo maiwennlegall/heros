@@ -46,6 +46,10 @@ em
     padding:10px;
     margin: 10px
 } 
+.btn_admin:hover
+{
+    background-color: rgb(146, 86, 210);
+}
 
 .logo
 {
