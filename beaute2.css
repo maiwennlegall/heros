@@ -1,4 +1,4 @@
-.bouton
+.bouton, .bouton:visited
 {
     text-decoration: none;
     color:white;
@@ -16,20 +16,6 @@
     border-radius:10px;
 }
 
-.bouton:visited
-{
-    text-decoration: none;
-    color:white;
-    background-color: rgb(28, 84, 158);
-    border-radius:10px;
-}
-
-.titre
-{
-    font-size: 16px;
-    
-}
-
 
 a:hover
 {
@@ -38,17 +24,14 @@ a:hover
     
     
 }
-a:visited
+a:visited, a
 {
     text-decoration: none;
-    color:black
+    color:black;
+    font-size:20px;
 }
 
-a
-{
-    text-decoration: none;
-    color:black
-}
+
 em
 {
     font-size: 24px;
@@ -66,5 +49,20 @@ em
 
 .logo
 {
-    max-height:25px ;
+    max-height:30px ;
+}
+
+.droite
+{
+    text-align: right;
+}
+
+.paragraphe
+{
+    margin-left: 3%;
+}
+
+.bloc_hist
+{
+    border-bottom: solid black 1px;
 }

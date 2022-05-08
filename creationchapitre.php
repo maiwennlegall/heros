@@ -137,6 +137,7 @@ require_once "includes/functions.php";
     else
     {
         ?> <!-- ?? -->
+        <?php
     }
     
 
