@@ -116,11 +116,6 @@ require_once "includes/functions.php";
             $line = $repp -> fetch();
             $vie = $line['point_de_vie'];
 
-            if($vie <= 0)
-            {
-                redirect('finhistoire.php?perdu=1&vie=false&hist='.$_GET["hist"]);
-            }
-
             $premReq = "SELECT modif_vie FROM chapitre WHERE id_hist=:hist";
             $repp = $BDD -> prepare($premReq);
             $repp -> execute(array(
@@ -139,6 +134,11 @@ require_once "includes/functions.php";
                 "hist" => $_GET["hist"],
                 "ch" => $_GET["ch"],
             )); 
+
+            if($nouvellevie <= 0)
+            {
+                redirect('finhistoire.php?perdu=1&vie=false&hist='.$_GET["hist"]);
+            }
            
         }
 

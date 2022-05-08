@@ -12,7 +12,6 @@ require_once "includes/functions.php";
 
     </div>
     <div class="container" id="corps">
-    <br/> <br/> <br/> <br/>
     <h1> Page administrateur </h1>
     
     <a href="creationhistoire.php" class="bouton">Créer une nouvelle histoire</a><br/><br/><br/>
