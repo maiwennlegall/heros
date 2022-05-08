@@ -18,7 +18,6 @@ require_once "includes/functions.php";
     <?php
         if(isset($_SESSION["login"]))
         {
-            ?> <h2>Reprendre une histoire</h2> <?php
             $premReq = "SELECT COUNT(*) as nb FROM partie WHERE id_utilisateur=:id";
             $repp = $BDD -> prepare($premReq);
             $repp -> execute(array(
@@ -26,6 +25,7 @@ require_once "includes/functions.php";
             $line = $repp -> fetch();
             if($line['nb']!=0)
             {
+                ?> <h2>Reprendre une histoire</h2> <?php
                 $maReq = "SELECT * FROM partie, histoire WHERE id_hist=hist_id and id_utilisateur=:id";
                 $repp = $BDD -> prepare($maReq);
                 $repp -> execute(array(

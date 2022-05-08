@@ -11,12 +11,11 @@
 {
     background-color:rgb(255, 240, 152);
     padding-top: 75px;
-    width: initial;
-
+    min-height: 100vh;
 }
 #logo
 {
-    max-height: 50px;
+    max-height: 8vh;
     
 }
 #trophaut
