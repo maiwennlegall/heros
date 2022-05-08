@@ -22,9 +22,11 @@ require_once "includes/functions.php";
             while($tuple = $res->fetch()) 
             {
                 ?>
-
-                <p class='titre'>
-                    <a href="modification.php?id=<?= $tuple["hist_id"] ?>" class="btn_admin">  <!-- Modification -->
+                
+                <div class="bloc_hist">
+                    <em>  <?= $tuple["titre"] ?> </em> <!-- Titre de l'histoire -->
+                    <p class="paragraphe"> <?=$tuple["resumer"] ?> </p>
+                    <a href="modification.php?id=<?= $tuple["hist_id"] ?>" class="btn_admin gauche">  <!-- Modification -->
                         Modifier
                         <img src="includes/crayon.png" class="logo" alt="dessin de crayon">
                     </a> 
@@ -32,7 +34,7 @@ require_once "includes/functions.php";
                     <?php 
                     if($tuple["cache"]==0)
                     {?>
-                        <a href="cacher.php?id=<?= $tuple["hist_id"] ?>" class="btn_admin">  <!-- Cacher -->
+                        <a href="cacher.php?id=<?= $tuple["hist_id"] ?>" class="btn_admin gauche">  <!-- Cacher -->
                             Masquer
                             <img src="includes/closedeye.png" class="logo" alt="dessin d'oeil barré">
                         </a>  
@@ -49,17 +51,18 @@ require_once "includes/functions.php";
                     }?>
                     
                 
-                    <em>  <?= $tuple["titre"] ?> </em> <!-- Titre de l'histoire -->
                     
-                    <a href="statistiques.php?id=<?= $tuple["hist_id"] ?>" class="btn_admin">  <!-- Page statisqtiques -->
+                    
+                    <a href="statistiques.php?id=<?= $tuple["hist_id"] ?>" class="btn_admin droite">  <!-- Page statisqtiques -->
                         Statistiques
                         <img src="includes/charts.png" class="logo" alt="dessin de graphique" >
                     </a>   
-                    <a href="suppression.php?id=<?= $tuple["hist_id"] ?>" class="btn_admin">
+                    <a href="suppression.php?id=<?= $tuple["hist_id"] ?>" class="btn_admin droite">
                         Supprimer
                         <img src="includes/poubelle.png" class="logo" alt="dessin de poubelle"> <!-- Supprimer -->
-                    </a> 
-                </p>
+                    </a> <br/><br/>
+                </div>
+                
             
                 <?php
             
