@@ -67,11 +67,11 @@ require_once "includes/functions.php";
         while($tuple = $requete->fetch()) 
         {
         ?>
-        <p class="text-center">Modifier le chapitre: <?= $tuple["titre"] ?></p>
+        <br/>
+        <p class="text-center titre" >Modifier le chapitre: <?= $tuple["titre"] ?></p>
         <div class="text-center">
         <form method="POST" action="enregistrermodifications.php?id=<?=$_GET['id']?>&idchap=<?=$tuple["id_chapitre"]?>" >
             
-            <p>Modifier le texte</p>
             <textarea name="texte" cols="50" rows="7"><?= $tuple["textes"] ?></textarea> <br/><br/>
             <p>Modifier les choix</p>
             <label for="nom">Choix 1 : </label>  <br/><br/>
@@ -80,7 +80,8 @@ require_once "includes/functions.php";
             <textarea name="choix2" cols="40" rows="7"><?= $tuple["choix2"] ?></textarea> <br/><br/>
             <label for="nom">Choix 3 : </label>  <br/><br/>
             <textarea name="choix3" cols="40" rows="7"><?= $tuple["choix3"] ?></textarea> <br/><br/>
-            
+            <label for="vie">Modification du nombre de vie (+1, -1...)</label>
+            <input type="number"  name="vie" value="<?= $tuple["modif_vie"] ?>"> <br/><br/>
            
             
             

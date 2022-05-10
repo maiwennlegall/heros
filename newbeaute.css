@@ -112,15 +112,14 @@ hr
 {
     border : solid 1px;
 }
-/*A revoir*/
-/*
-.bouton
+.bouton, .bouton:visited
 {
     text-decoration: none;
     color:white;
     background-color: rgb(28, 84, 158);
     border-radius:10px;
     padding:5px;
+
 }
 
 .bouton:hover
@@ -131,18 +130,43 @@ hr
     border-radius:10px;
 }
 
-.bouton:visited
+
+em
+{
+    font-size: 24px;
+    text-decoration: none;
+    font-weight: bold;
+    font-style: normal;
+}
+.btn_admin, .btn_admin:visited
 {
     text-decoration: none;
-    color:white;
-    background-color: rgb(28, 84, 158);
+    background-color: rgb(98, 149, 215);
+    color:black;
     border-radius:10px;
+    padding:10px;
+    margin: 10px;
+    font-size:20px;
+} 
+.btn_admin:hover
+{
+    background-color: rgb(146, 86, 210);
+    text-decoration: none;
+    color:black;
 }
 
-.titre
+.logo
 {
-    font-size: 16px;
-    
+    max-height:30px ;
 }
-*/
+
+.paragraphe
+{
+    margin-left: 3%;
+}
+
+.bloc_hist
+{
+    border-bottom: solid black 1px;
+}
 
