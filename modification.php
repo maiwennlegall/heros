@@ -80,7 +80,8 @@ require_once "includes/functions.php";
             <textarea name="choix2" cols="40" rows="7"><?= $tuple["choix2"] ?></textarea> <br/><br/>
             <label for="nom">Choix 3 : </label>  <br/><br/>
             <textarea name="choix3" cols="40" rows="7"><?= $tuple["choix3"] ?></textarea> <br/><br/>
-            
+            <label for="vie">Modification du nombre de vie (+1, -1...)</label>
+            <input type="number"  name="vie" value="<?= $tuple["modif_vie"] ?>"> <br/><br/>
            
             
             
