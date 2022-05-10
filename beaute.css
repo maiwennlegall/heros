@@ -83,6 +83,7 @@ fieldset
     color: rgb(28, 84, 158) !important;
     background-color: rgb(255, 230, 86);
     border : solid rgb(28, 84, 158);
+    font-weight: bold;
 }
 .nav-item a
 {
@@ -98,6 +99,18 @@ a .btn-secondary
 .btn-primary
 {
     size : 200px;
+}
+.recap_chap
+{
+    margin: 1%;
+}
+.fin_hist, h5
+{
+    text-decoration: underline;
+}
+hr
+{
+    border : solid 1px;
 }
 /*A revoir*/
 /*

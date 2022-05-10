@@ -56,7 +56,6 @@ function premier_ch_non_fini() {
             $pasun = false;
             $pasundeux = false;
             while($newtuple = $res->fetch()){ 
-                    echo "valeur".$valeur."avec".$newtuple['id_chapitre']."et".$tuple['id_ch_choix1'].",".$tuple['id_ch_choix2']."".$tuple['id_ch_choix3']."puis";
                     if($tuple['id_ch_choix1']==$newtuple['id_chapitre'] && !$pasun && !$pasundeux)
                     {
                         $valeur = $tuple['id_ch_choix2'];

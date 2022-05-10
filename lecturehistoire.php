@@ -16,6 +16,7 @@ require_once "includes/functions.php";
     </div>
     <div class="container" id="corps">
     <?php 
+        //on regarde si une partie est déjà enregistré pour cet utilisateur
         $premReq = "SELECT COUNT(*) as nb FROM partie WHERE id_utilisateur=:id and id_hist=:hist";
         $repp = $BDD -> prepare($premReq);
         $repp -> execute(array(
@@ -43,6 +44,24 @@ require_once "includes/functions.php";
         }
         else if(isset($_GET["debut"]))
         {
+            //on regarde si il y a un historique de partie qui ne se serait pas supprimé car la personne n'a pas cliqué sur le bouton de récapitulatif
+            $premReq = "SELECT COUNT(*) as nb FROM historique_partie WHERE id_joueur=:id and id_hist=:hist";
+            $repp = $BDD -> prepare($premReq);
+            $repp -> execute(array(
+                "id" => $_SESSION["login"],
+                "hist" => $_GET["hist"],
+            ));
+            $line = $repp -> fetch();
+            if($line['nb']=!0)
+            {
+                $requete = 'DELETE FROM historique_partie WHERE id_joueur=:joueur and id_hist=:hist';
+                $response = $BDD->prepare($requete);
+                $response->execute(array(
+                    "joueur" => $_SESSION["login"],
+                    "hist" => $_GET["hist"],
+                ));
+            }
+
             $premReq = "SELECT nb_vie_dbt FROM histoire WHERE hist_id=:hist";
             $repp = $BDD -> prepare($premReq);
             $repp -> execute(array(
@@ -70,13 +89,12 @@ require_once "includes/functions.php";
             $requete = $BDD->prepare('UPDATE histoire SET nb_joue=:newnb_joue WHERE hist_id=:idhistoire');
             $requete->execute(array('newnb_joue' => $newnbjoue,'idhistoire'=> $_GET["hist"]));
         }
+        //on vérifie qu'on vient bien sur ce chapitre pour la première fois dans cette partie 
+        //ce n'est pas un retour depuis la page d'accueil pour reprendre l'histoire
         else if(!isset($_GET["retour"]))
         {
-            
-            
-            
-            
-            $req = "SELECT * FROM chapitre WHERE id_hist=:histoire";
+
+            /*$req = "SELECT * FROM chapitre WHERE id_hist=:histoire";
             $reponse = $BDD -> prepare($req);
             $reponse ->execute(array(
                 "histoire" => $_GET["hist"],
@@ -106,8 +124,9 @@ require_once "includes/functions.php";
                     'joueur' => $_SESSION["login"],
                     'ch' => $text_chap,
                     'choix' => $text_choix,
-                    ));
-
+            ));
+            */
+            
 
             $premReq = "SELECT point_de_vie FROM partie WHERE id_utilisateur=:id and id_hist=:hist";
             $repp = $BDD -> prepare($premReq);
@@ -143,8 +162,31 @@ require_once "includes/functions.php";
             }
            
         }
+        if(!isset($_GET["retour"]) || isset($_GET["debut"]))
+        {
+            $req = "SELECT * FROM chapitre WHERE id_hist=:histoire";
+            $reponse = $BDD -> prepare($req);
+            $reponse ->execute(array(
+                "histoire" => $_GET["hist"],
+            ));
+            $text_chap ="";
+            while($tuple = $reponse->fetch()){
+                if($tuple["id_ch_hors_hist"]==$_GET["ch"])
+                {
+                    $text_chap = $tuple["textes"];
+                    $req = $BDD -> prepare("INSERT INTO historique_partie (id_hist, id_chap, id_joueur, text_chapitre, text_choix_fait) VALUES (:hist, :chap, :joueur, :ch, :choix)");
+                    $req -> execute(array(
+                            'hist' => $_GET['hist'],
+                            'chap' => $_GET['ch'],
+                            'joueur' => $_SESSION["login"],
+                            'ch' => $text_chap,
+                            'choix' => "NULL",
+                            ));
+                }
+            }
+        }
 
-        $maReq = "SELECT * FROM chapitre WHERE id_chapitre=:iden and id_hist=:histoire";
+        $maReq = "SELECT * FROM chapitre WHERE id_ch_hors_hist=:iden and id_hist=:histoire";
         $reponse = $BDD -> prepare($maReq);
         $reponse ->execute(array(
             "iden"=>$_GET["ch"],
@@ -177,15 +219,15 @@ require_once "includes/functions.php";
             <div class="row">
                 <div class="col">
                     <?=$choix1?> <br/>
-                    <button type="button" class="btn btn-info" onClick="window.location.href='lecturehistoire.php?hist=<?=$_GET["hist"]?>&ch=<?=$c1?>';">Choix n°1</button>
+                    <button type="button" class="btn btn-info" onClick="window.location.href='traitement_donnes.php?choix=<?=$c1?>&hist=<?=$_GET["hist"]?>';">Choix n°1</button>
                 </div>
                 <div class="col">
                     <?=$choix2?> <br/>
-                    <button type="button" class="btn btn-info" onClick="window.location.href='lecturehistoire.php?hist=<?=$_GET["hist"]?>&ch=<?=$c2?>';">Choix n°2</button>
+                    <button type="button" class="btn btn-info" onClick="window.location.href='traitement_donnes.php?choix=<?=$c2?>&hist=<?=$_GET["hist"]?>';">Choix n°2</button>
                 </div>
                 <div class="col">
                     <?=$choix3?> <br/>
-                    <button type="button" class="btn btn-info" onClick="window.location.href='lecturehistoire.php?hist=<?=$_GET["hist"]?>&ch=<?=$c3?>';">Choix n°3</button>
+                    <button type="button" class="btn btn-info" onClick="window.location.href='traitement_donnes.php?choix=<?=$c3?>&hist=<?=$_GET["hist"]?>';">Choix n°3</button>
                 </div>
             </div>
 
@@ -193,6 +235,11 @@ require_once "includes/functions.php";
         }
         else
         {
+            $res = $BDD->prepare('UPDATE partie SET etat_fin =1 WHERE id_utilisateur = :id and id_hist=:hist'); 
+            $res->execute(array(
+                "hist" => $_GET["hist"],
+                "id" => $_SESSION["login"],
+            ));
             ?>
             <button type="button" class="btn btn-info" onClick="window.location.href='finhistoire.php?perdu=<?=$fin?>&hist=<?=$_GET["hist"]?>';">Recapitulatif histoire</button>
             <?php 

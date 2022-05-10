@@ -13,12 +13,6 @@ require_once "includes/functions.php";
         <?php require_once "includes/header.php"; ?>
     </div>
 
-    <?php $res = $BDD->prepare('UPDATE partie SET etat_fin =1 WHERE id_utilisateur = :id and id_hist=:hist'); 
-                $res->execute(array(
-                "hist" => $_GET["hist"],
-                "id" => $_SESSION["login"],
-            )); ?>
-
     <div class="container" id="corps">
     <h1> Fin de votre histoire <h1>
     <?php
@@ -75,12 +69,19 @@ require_once "includes/functions.php";
         while($tuple = $reponse->fetch()){
             $numero_ch = $numero_ch +1;
             ?>
-                <h4> Chapitre n°<?=$numero_ch?> </h4>
-                <div class="container">
-                    <?= $tuple["text_chapitre"] ?>
-                    <h5> Choix fait </h5>
-                    <?= $tuple["text_choix_fait"] ?>
+            <hr/>
+                <div class="container recap_chap" id="recap_chap">
+                <h4 class="fin_hist"> Chapitre n°<?=$numero_ch?> </h4>
+                
+                    <?php echo $tuple["text_chapitre"] ;
+                    if($tuple["text_choix_fait"]!="NULL")
+                    { ?>
+                        <h5> Choix fait </h5>
+                     <?php echo $tuple["text_choix_fait"] ;
+                    }
+                    ?>
                 </div>
+                
             <?php
         }
         $requete = 'DELETE FROM historique_partie WHERE id_joueur=:joueur and id_hist=:hist';
@@ -89,9 +90,16 @@ require_once "includes/functions.php";
             "joueur" => $_SESSION["login"],
             "hist" => $_GET["hist"],
         ));
+
+        $requete = 'DELETE FROM partie WHERE id_utilisateur=:joueur and id_hist=:hist';
+        $response = $BDD->prepare($requete);
+        $response->execute(array(
+            "joueur" => $_SESSION["login"],
+            "hist" => $_GET["hist"],
+        ));
         ?>
     </div>
-
+    <button type="button" class="btn btn-info" onClick="window.location.href='index.php';">Revenir à l'accueil</button>
     </div>
 
 </body>
