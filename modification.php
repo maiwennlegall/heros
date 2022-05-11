@@ -95,9 +95,11 @@ require_once "includes/functions.php";
     </div>
     
 
-    
+    <button type="button" class="btn btn-info" onClick="window.location.href='index.php';">Revenir à l'accueil</button>
+<button type="button" class="btn btn-info" onClick="window.location.href='admininstrateur.php';">Revenir à la page administrateur</button>
 
 </div> 
+
 
     <?php require_once "includes/scripts.php"; ?>
 </body>
