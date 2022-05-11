@@ -137,10 +137,11 @@ require_once "includes/functions.php";
             $line = $repp -> fetch();
             $vie = $line['point_de_vie'];
 
-            $premReq = "SELECT modif_vie FROM chapitre WHERE id_hist=:hist";
+            $premReq = "SELECT modif_vie FROM chapitre WHERE id_hist=:hist and id_ch_hors_hist=:chap";
             $repp = $BDD -> prepare($premReq);
             $repp -> execute(array(
                 "hist" => $_GET["hist"],
+                "chap" => $_GET["ch"]
                 
             ));
             $line = $repp -> fetch();
@@ -220,15 +221,15 @@ require_once "includes/functions.php";
             <div class="row">
                 <div class="col">
                     <?=$choix1?> <br/>
-                    <button type="button" class="btn btn-info" onClick="window.location.href='traitement_donnes.php?choix=<?=$c1?>&hist=<?=$_GET["hist"]?>';">Choix n°1</button>
+                    <button type="button" class="btn btn-info" onClick="window.location.href='traitement_donnes.php?choix=<?=$c1?>&n=1&hist=<?=$_GET["hist"]?>';">Choix n°1</button>
                 </div>
                 <div class="col">
                     <?=$choix2?> <br/>
-                    <button type="button" class="btn btn-info" onClick="window.location.href='traitement_donnes.php?choix=<?=$c2?>&hist=<?=$_GET["hist"]?>';">Choix n°2</button>
+                    <button type="button" class="btn btn-info" onClick="window.location.href='traitement_donnes.php?choix=<?=$c2?>&n=2&hist=<?=$_GET["hist"]?>';">Choix n°2</button>
                 </div>
                 <div class="col">
                     <?=$choix3?> <br/>
-                    <button type="button" class="btn btn-info" onClick="window.location.href='traitement_donnes.php?choix=<?=$c3?>&hist=<?=$_GET["hist"]?>';">Choix n°3</button>
+                    <button type="button" class="btn btn-info" onClick="window.location.href='traitement_donnes.php?choix=<?=$c3?>&n=3&hist=<?=$_GET["hist"]?>';">Choix n°3</button>
                 </div>
             </div>
 
