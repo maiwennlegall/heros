@@ -12,7 +12,6 @@ require_once "includes/functions.php";
 
     </div>
     <div class="container" id="corps">
-    <br/> <br/> <br/> <br/>
    
     <?php
         if(isset($_GET['id'])) 

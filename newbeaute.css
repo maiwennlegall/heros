@@ -7,36 +7,59 @@
 {
     color:gold;
 }
+body
+{
+    background-image: url(includes//Sans\ titre.png);
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+}
 #corps
 {
-    background-color:rgb(255, 240, 152);
+    margin-top: 75px;
     padding-top: 75px;
-    min-height: 100vh;
+    min-height: 95vh;
+    width: 80vw;
+    margin: auto;
+    border-radius: 5%;
+    box-shadow : 5px 5px 10px rgb(28, 84, 158), -5px -5px 10px rgb(28, 84, 158);
 }
 #logo
 {
     max-height: 8vh;
     
 }
-#trophaut
-{
-    margin-top: 75px;
-    text-align: center;
-}
 h1
 {
     margin-bottom : 50px;
     text-align: center;
 }
-#choix
+.separation
 {
     margin-top: 50px;
+    padding-top: 10px;
     background-color: rgb(28, 84, 158);
     color: white;
+    text-align:left;
+
+}
+.box
+{
+    box-sizing: border-box;
+    border: 3px solid transparent;
+    background-clip:padding-box;
+}
+#form
+{
+    margin: auto;
+}
+.choice
+{
+    text-align: left;
 }
 #chapitre
 {
-    border: solid rgb(28, 84, 158) ;
+    box-shadow : 5px 5px 10px rgb(252, 224, 67), -5px -5px 10px rgb(252, 224, 67);
 }
 #bleu
 {
@@ -157,4 +180,9 @@ em
 {
     border-bottom: solid black 1px;
 }
+input:focus, textarea:focus 
+{
+    border: dotted black;
+}
+
 

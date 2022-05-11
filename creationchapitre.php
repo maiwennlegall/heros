@@ -145,7 +145,7 @@ require_once "includes/functions.php";
     ?>
 
     
-    <div class="container" id="trophaut">
+    <div class="container text-center" id="corps">
         
         <h1>Creation d'un chapitre</h1>
 

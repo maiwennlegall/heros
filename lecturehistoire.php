@@ -14,7 +14,6 @@ require_once "includes/functions.php";
         <?php require_once "includes/header.php"; ?>
 
     </div>
-    <div class="container" id="corps">
     <?php 
         //on regarde si une partie est déjà enregistré pour cet utilisateur
         $premReq = "SELECT COUNT(*) as nb FROM partie WHERE id_utilisateur=:id and id_hist=:hist";
@@ -202,7 +201,7 @@ require_once "includes/functions.php";
         $choix3 = $ligne["choix3"];
         $fin = $ligne["type_fin"];
     ?>
-    <div class="container" id="trophaut">
+    <div class="container" id="corps">
         
         <h1 id="bleu"><?=$title ?></h1>
 
@@ -214,21 +213,29 @@ require_once "includes/functions.php";
         if($choix1!=NULL)
         {
             ?>
-            <div class="container" id="choix">
-            <div class="row">
-                <div class="col">
-                    <?=$choix1?> <br/>
-                    <button type="button" class="btn btn-info" onClick="window.location.href='traitement_donnes.php?choix=1&ch=<?=$_GET["ch"]?>&hist=<?=$_GET["hist"]?>';">Choix n°1</button>
+        <div class="container">
+        <div class="row">
+                <div class="separation col-4 box">
+                    <p class="choice"> <?=$choix1?> </p>
                 </div>
-                <div class="col">
-                    <?=$choix2?> <br/>
-                    <button type="button" class="btn btn-info" onClick="window.location.href='traitement_donnes.php?choix=2&ch=<?=$_GET["ch"]?>&hist=<?=$_GET["hist"]?>';">Choix n°2</button>
+                <div class="separation col-4 box">
+                <p class="choice"> <?=$choix2?> </p>
                 </div>
-                <div class="col">
-                    <?=$choix3?> <br/>
-                    <button type="button" class="btn btn-info" onClick="window.location.href='traitement_donnes.php?choix=3&ch=<?=$_GET["ch"]?>&hist=<?=$_GET["hist"]?>';">Choix n°3</button>
+                <div class="separation col-4 box">
+                <p class="choice"> <?=$choix3?> </p>
                 </div>
+        </div>
+        <div class="row">
+            <div class="text-center col-4">
+                <button type="button" class="btn btn-info " onClick="window.location.href='traitement_donnes.php?choix=1&ch=<?=$_GET["ch"]?>&hist=<?=$_GET["hist"]?>';">Choix n°1</button>
             </div>
+            <div class="text-center col-4">
+                <button type="button" class="btn btn-info " onClick="window.location.href='traitement_donnes.php?choix=2&ch=<?=$_GET["ch"]?>&hist=<?=$_GET["hist"]?>';">Choix n°2</button>
+            </div>
+            <div class="text-center col-4">
+                <button type="button" class="btn btn-info " onClick="window.location.href='traitement_donnes.php?choix=3&ch=<?=$_GET["ch"]?>&hist=<?=$_GET["hist"]?>';">Choix n°3</button>
+            </div>
+        </div>
 
         <?php 
         }
@@ -240,16 +247,15 @@ require_once "includes/functions.php";
                 "id" => $_SESSION["login"],
             ));
             ?>
+            <div class="mt-3 text-center">
             <button type="button" class="btn btn-info" onClick="window.location.href='finhistoire.php?perdu=<?=$fin?>&hist=<?=$_GET["hist"]?>';">Recapitulatif histoire</button>
+            </div>
             <?php 
         }
         ?>
         
         </div>
 
-        
-        
-    </div>
     </div>
 
     <?php require_once "includes/scripts.php"; ?>

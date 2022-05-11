@@ -32,7 +32,7 @@ if(!empty($_POST["nom"])&&!empty($_POST["resume"])&&!empty($_POST["vie"]))
         <?php require_once "includes/header.php"; ?>
 
     </div>
-    <div class="container" id="trophaut">
+    <div class="container text-center" id="corps">
         
         <h1>Creation d'une histoire</h1>
 
@@ -46,7 +46,7 @@ if(!empty($_POST["nom"])&&!empty($_POST["resume"])&&!empty($_POST["vie"]))
             <input type="text"  name="resume"> <br/><br/>
 
             <label for="vie">Combien de vie aura le personnage au début de l'histoire</label><br/>
-            <input type="text"  name="vie"> <br/><br/>
+            <input type="number"  name="vie"> <br/><br/>
             
             <button type="submit" class="btn btn-default btn-primary btn-lg"> Envoyer </button>          
         </div>

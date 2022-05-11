@@ -22,7 +22,7 @@
         ?>
 
     </div>
-        <br/> <br/><br/>
+<div class="container" id="corps">
     <h1 class="text-center">Inscription</h1>
 
 <div class="text-center">
@@ -35,4 +35,5 @@
 <p class="text-center"> J'ai déjà un compte: <a class="btn btn-secondary" href="connexion.php" type="button">Se connecter</a></p>
     <?php require_once "includes/scripts.php"; ?>
     
+</div>
 </body>
