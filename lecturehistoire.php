@@ -158,6 +158,7 @@ require_once "includes/functions.php";
 
             if($nouvellevie <= 0)
             {
+                echo "test fin vie";
                 redirect('finhistoire.php?perdu=1&vie=false&hist='.$_GET["hist"]);
             }
            

@@ -7,10 +7,11 @@
 <body>
     <div class="container">
         <?php require_once "includes/header.php"; ?>
-        <?php require_once "includes/head.php"; 
+        <?php require_once "includes/head.php";
 
         if(!empty($_POST["login"])&&!empty($_POST["mdp"]))
             {   
+                
                 $maReq = $BDD -> prepare("INSERT INTO utilisateur (id_joueur, mdp) VALUES (:identifiant, :mdp)");
                 $maReq -> execute(array(
                     'identifiant' => $_POST["login"],
@@ -28,8 +29,10 @@
         <form method="post" action="inscription.php"> <!--changer le fichier dans action-->
         <input type="text"  name="login" placeholder="Entrez un identifiant" > <br/><br/>
         <input type="password"  name="mdp" placeholder="Entrez un mot de passe" ><br/><br/>
-        <input type="submit" class="btn btn-default btn-primary btn-lg" name="s_inscrire" id="s_inscrire" value="S'inscrire"/>            
+        <input type="submit" class="btn btn-default btn-primary btn-lg" name="submit" id="submit" value="S'inscrire"/>            
 </div>
+
 <p class="text-center"> J'ai déjà un compte: <a class="btn btn-secondary" href="connexion.php" type="button">Se connecter</a></p>
     <?php require_once "includes/scripts.php"; ?>
+    
 </body>
