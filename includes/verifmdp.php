@@ -9,9 +9,9 @@ function testmdp($mdp)
     for ($i=0;$i<strlen($mdp);$i++){
     if (!isNaN(parseInt($mdp[i])))
         $contient_un_chiffre = true;
-    else if ($mdp[i] == $mdp[i].toUpperCase())
+    else if ($mdp[i] == strtoupper($mdp[i]))
         $contient_une_majuscule = true;
-    else if ($mdp[i] == $mdp[i].toLowerCase())
+    else if ($mdp[i] == strtolower($mdp[i]))
         $contient_une_minuscule = true;
     }
 
