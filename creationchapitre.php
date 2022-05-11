@@ -227,7 +227,7 @@ require_once "includes/functions.php";
             <textarea name="resumer" cols="50" rows="7" placeholder="Texte de votre chapitre"></textarea> <br/><br/>
 
             <label for="vie">Modification du nombre de vie (+1, -1...)</label>
-            <input type="number"  name="vie" value="0"> <br/><br/>
+            <input type="number"  name="vie"> <br/><br/>
 
             <label for="ch1">Choix n°1</label>
             <input type="text"  name="ch1"> <br/><br/>

@@ -200,9 +200,6 @@ require_once "includes/functions.php";
         $choix1 = $ligne["choix1"];
         $choix2 = $ligne["choix2"];
         $choix3 = $ligne["choix3"];
-        $c1 = $ligne["id_ch_choix1"];
-        $c2 = $ligne["id_ch_choix2"];
-        $c3 = $ligne["id_ch_choix3"];
         $fin = $ligne["type_fin"];
     ?>
     <div class="container" id="trophaut">
@@ -221,15 +218,15 @@ require_once "includes/functions.php";
             <div class="row">
                 <div class="col">
                     <?=$choix1?> <br/>
-                    <button type="button" class="btn btn-info" onClick="window.location.href='traitement_donnes.php?choix=<?=$c1?>&n=1&hist=<?=$_GET["hist"]?>';">Choix n°1</button>
+                    <button type="button" class="btn btn-info" onClick="window.location.href='traitement_donnes.php?choix=1&ch=<?=$_GET["ch"]?>&hist=<?=$_GET["hist"]?>';">Choix n°1</button>
                 </div>
                 <div class="col">
                     <?=$choix2?> <br/>
-                    <button type="button" class="btn btn-info" onClick="window.location.href='traitement_donnes.php?choix=<?=$c2?>&n=2&hist=<?=$_GET["hist"]?>';">Choix n°2</button>
+                    <button type="button" class="btn btn-info" onClick="window.location.href='traitement_donnes.php?choix=2&ch=<?=$_GET["ch"]?>&hist=<?=$_GET["hist"]?>';">Choix n°2</button>
                 </div>
                 <div class="col">
                     <?=$choix3?> <br/>
-                    <button type="button" class="btn btn-info" onClick="window.location.href='traitement_donnes.php?choix=<?=$c3?>&n=3&hist=<?=$_GET["hist"]?>';">Choix n°3</button>
+                    <button type="button" class="btn btn-info" onClick="window.location.href='traitement_donnes.php?choix=3&ch=<?=$_GET["ch"]?>&hist=<?=$_GET["hist"]?>';">Choix n°3</button>
                 </div>
             </div>
 
