@@ -8,9 +8,10 @@
     <div class="container">
         <?php require_once "includes/header.php"; ?>
         <?php require_once "includes/head.php";
-
+        $existe=false; 
         if(!empty($_POST["login"])&&!empty($_POST["mdp"]))
-            {   
+            {
+                  
                 //Vérification que le login n'est pas déjà utilisé
 
                 $login = escape($_POST['login']);

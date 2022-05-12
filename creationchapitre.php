@@ -15,6 +15,9 @@ require_once "includes/functions.php";
         <br/><br/><br/>
     </div>
     <?php
+
+
+
     $reqq = 'SELECT count(*) as nb from chapitre WHERE id_hist=:hist'; 
     $resp = $BDD->prepare($reqq);
     $resp -> execute(array(
@@ -88,6 +91,9 @@ require_once "includes/functions.php";
     
     else if(!empty($_POST["resumer"]) && !empty($_POST["titre"]) &&$_GET["debut"]==0)
     {   
+        $resumer=escape($_POST["resumer"]);
+        $titre=escape($_POST["titre"]);
+
         if(isset($_POST['fin']))
             {
                 if($_POST['fin']=="Fin_positive")
@@ -101,10 +107,10 @@ require_once "includes/functions.php";
                 $maReq = $BDD -> prepare("INSERT INTO chapitre (id_chapitre, titre, id_hist, type_fin, textes) VALUES (:id, :title, :hist, :fin, :ecriture)");
                 $maReq -> execute(array(
                         'id' => $nb_chapitres_faits+1,
-                        'title' => $_POST['titre'],
+                        'title' => $titre,
                         'hist' => $_GET['histoire'],
                         'fin' => $fin,
-                        'ecriture' => $_POST["resumer"],
+                        'ecriture' => $resumer,
                     ));
             }
         else
@@ -116,20 +122,24 @@ require_once "includes/functions.php";
                 }
                 else
                 {
+                    $ch1=escape($_POST['ch1']);
+                    $ch2=escape($_POST['ch2']);
+                    $ch3=escape($_POST['ch3']);
+
                     $maReq = $BDD -> prepare("INSERT INTO chapitre (id_chapitre, titre, id_hist, modif_vie, id_ch_choix1, id_ch_choix2, id_ch_choix3, choix1, choix2, choix3, textes) VALUES (:id, :title, :hist, :vie, :id1, :id2, :id3, :t1, :t2, :t3, :ecriture)");
                     $maReq -> execute(array(
                                 'id' => $nb_chapitres_faits+1,
-                                'title' => $_POST['titre'],
+                                'title' => $titre,
                                 'hist' => $_GET['histoire'],
                                 'vie' => $_POST['vie'],
                                 'id1' => (($nb_chapitres_pas_fin+1)*3)-1,
                                 'id2' => (($nb_chapitres_pas_fin+1)*3),
                                 'id3' => (($nb_chapitres_pas_fin+1)*3)+1,
-                                't1' => $_POST["ch1"],
-                                't2' => $_POST['ch2'],
-                                't3' => $_POST["ch3"],
+                                't1' => $ch1,
+                                't2' => $ch2,
+                                't3' => $ch3,
 
-                                'ecriture' => $_POST["resumer"],
+                                'ecriture' => $resumer,
                                 ));    
                 }
         }

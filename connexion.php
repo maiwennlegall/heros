@@ -11,8 +11,8 @@ include("includes/connect.php");
 
     <?php
     if (!empty($_POST['login']) and !empty($_POST['mdp'])) {
-    $login = $_POST['login'];
-    $password = $_POST['mdp'];
+    $login = escape($_POST['login']);
+    $password = escape($_POST['mdp']);
     $stmt = $BDD->prepare('SELECT COUNT(*) AS nb from utilisateur where id_joueur=? and mdp=?');
     $stmt->execute(array($login, $password));
     $line = $stmt ->fetch();
