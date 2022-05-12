@@ -24,7 +24,7 @@
                         $existe=true;
                     }
                 }
-                if($existe==false)
+                if($existe==false) //Insertion dans la table utilisateur du nouvel utilisateur si le login n'est pas déjà utilisé
                 {
                     $maReq = $BDD -> prepare("INSERT INTO utilisateur (id_joueur, mdp) VALUES (:identifiant, :mdp)");
                     $maReq -> execute(array(
@@ -44,18 +44,18 @@
 <div class="container" id="corps">
     <h1 class="text-center">Inscription</h1>
     <?php
-        if($existe==true)
+        if($existe==true) //Message d'erreur si le login est déjà utilisé
         { 
             $erreur = "Ce nom d'utilisateur est déjà utilisé"; 
             if (isset($erreur)) 
             { ?>
                     <div class="alert alert-danger">
-                    <strong>Erreur !</strong> <?= $erreur ?>
+                    <strong>Erreur !</strong> <?= $erreur ?> 
                     </div>
             <?php }           
          } ?>
 <div class="text-center">
-        <form method="post" action="inscription.php"> <!--changer le fichier dans action-->
+        <form method="post" action="inscription.php"> 
         <input type="text"  name="login" placeholder="Entrez un identifiant" > <br/><br/>
         <input type="password"  name="mdp" placeholder="Entrez un mot de passe" ><br/><br/>
         

@@ -4,6 +4,7 @@
     require_once "includes/functions.php";
     require_once "includes/head.php";
     $newvalue=1;
+    //Passage à 1 du champ cache de la table histoire , signifiant que l'histoire doit être cachée
     if(isset($_GET['id'])) 
     {
         

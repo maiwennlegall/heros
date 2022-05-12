@@ -10,6 +10,7 @@ include("includes/connect.php");
     </div>
 
     <?php
+    //On vérifie que le login et le mdp correspondent à un utilisateur de la base, sinon on affiche un message d'erreur.
     if (!empty($_POST['login']) and !empty($_POST['mdp'])) {
     $login = escape($_POST['login']);
     $password = escape($_POST['mdp']);
@@ -35,7 +36,7 @@ include("includes/connect.php");
 <?php } ?>
 
     <div class="text-center">
-            <form method="post" action="connexion.php"> <!--changer le fichier dans action-->
+            <form method="post" action="connexion.php"> 
             <input type="text"  name="login" placeholder="Entrez votre login" > <br/><br/>
             <input type="password"  name="mdp" placeholder="Entrez votre mot de passe" ><br/><br/>
             <input type="submit" class="btn btn-default btn-primary btn-lg" name="se_connecter" id="se_connecter" value="Se connecter"/>            

@@ -25,49 +25,49 @@ require_once "includes/functions.php";
                 <div class="bloc_hist">
                     <em>  <?= $tuple["titre"] ?> </em> <!-- Titre de l'histoire -->
                     <p class="paragraphe"> <?=$tuple["resumer"] ?> </p>
-                <div class="row">
-                    <div class="col-m">
-                    <button type="button" class="btn_admin" onClick="window.location.href='modification.php?id=<?= $tuple["hist_id"] ?>';">
-                        Modifier
-                        <img src="includes/crayon.png" class="logo" alt="dessin de crayon"> <!-- Modification -->
-                    </button>
+                    <div class="row">
+                        <div class="col-m">
+                            <button type="button" class="btn_admin" onClick="window.location.href='modification.php?id=<?= $tuple["hist_id"] ?>';">
+                                Modifier
+                                <img src="includes/crayon.png" class="logo" alt="dessin de crayon"> <!-- Modification -->
+                            </button>
+                        </div>
+                        <div class="col-m">
+                            <?php 
+                            if($tuple["cache"]==0)
+                            {?>
+                                <button type="button" class="btn_admin" onClick="window.location.href='cacher.php?id=<?= $tuple["hist_id"] ?>';">
+                                    Masquer
+                                    <img src="includes/closedeye.png" class="logo" alt="dessin d'oeil barré"> <!-- Cacher -->
+                                </button>
+                            
+                            <?php
+                            }
+                            else if($tuple["cache"]==1)
+                            {?>
+                                <button type="button" class="btn_admin" onClick="window.location.href='afficher.php?id=<?= $tuple["hist_id"] ?>';">
+                                    Rendre visible
+                                    <img src="includes/eye.png" class="logo" alt="dessin d'oeil">  <!-- Rendre visible -->
+                                </button>  
+                            <?php
+                            }?>
+                        </div>
+                        
+                        <div class="col-m">
+                            <button type="button" class="btn_admin" onClick="window.location.href='afficher.php?id=statistiques.php?id=<?= $tuple["hist_id"] ?>';"> 
+                                Statistiques
+                                <img src="includes/charts.png" class="logo" alt="dessin de graphique" ><!-- Page statisqtiques -->
+                            </button>   
+                        </div>
+                        <div class="col-m">
+                            <button class="btn_admin" onclick="Suppression(<?=$tuple['hist_id']?>)">
+                                Supprimer
+                                <img src="includes/poubelle.png" class="logo" alt="dessin de poubelle"> <!-- Supprimer -->
+                            </button> 
+                        </div>
+                        <br/><br/>
                     </div>
-                    <div class="col-m">
-                    <?php 
-                    if($tuple["cache"]==0)
-                    {?>
-                        <button type="button" class="btn_admin" onClick="window.location.href='cacher.php?id=<?= $tuple["hist_id"] ?>';">
-                            Masquer
-                            <img src="includes/closedeye.png" class="logo" alt="dessin d'oeil barré"> <!-- Cacher -->
-                        </button>
-                    
-                    <?php
-                    }
-                    else if($tuple["cache"]==1)
-                    {?>
-                        <button type="button" class="btn_admin" onClick="window.location.href='afficher.php?id=<?= $tuple["hist_id"] ?>';">
-                            Rendre visible
-                            <img src="includes/eye.png" class="logo" alt="dessin d'oeil">  <!-- Rendre visible -->
-                        </button>  
-                    <?php
-                    }?>
-                    </div>
-                    
-                    <div class="col-m">
-                    <button type="button" class="btn_admin" onClick="window.location.href='afficher.php?id=statistiques.php?id=<?= $tuple["hist_id"] ?>';"> 
-                        Statistiques
-                        <img src="includes/charts.png" class="logo" alt="dessin de graphique" ><!-- Page statisqtiques -->
-                    </button>   
-                    </div>
-                    <div class="col-m">
-                    <button class="btn_admin" onclick="Suppression(<?=$tuple['hist_id']?>)">
-                        Supprimer
-                        <img src="includes/poubelle.png" class="logo" alt="dessin de poubelle"> <!-- Supprimer -->
-                    </button> 
-                    </div>
-                    <br/><br/>
                 </div>
-                
             
                 <?php
             

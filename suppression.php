@@ -10,6 +10,8 @@
         $response = $BDD->prepare($requete);
         $response->execute(array('idhistoire' => $_GET['id']));
 
+        //La construction de la base de données implique la suppression en cascade des données liées à cette histoire dans les autres tables
+
         /*$requete2 = "DELETE FROM chapitre WHERE id_hist=:idhistoire"; #suppression des chapitres
         $response2 = $BDD->prepare($requete2);
         $response2->execute(array('idhistoire' => $_GET['id']));

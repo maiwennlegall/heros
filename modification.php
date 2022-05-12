@@ -30,28 +30,27 @@ require_once "includes/functions.php";
             ?>  
             
             <div class="formulaire text-center">
-            <form method="POST" action="modification.php?id=<?=$identifiant_histoire?>">  
-            <p>Choisissez le chapitre que vous voulez modifier:</p>
-            <select name="chap">
-
-            <?php 
-            $maReq = "SELECT * FROM chapitre WHERE id_hist=:idhistoire";
-            $response = $BDD->prepare($maReq);
-            $response->execute(array('idhistoire' => $identifiant_histoire));
-            while($tuple = $response->fetch())
-            { 
-            ?>
-                <option><?=$tuple['titre']?></option>
-                
-            <?php        
-            } 
-            ?>
-            
-            </select>  
-            <input type="submit" name="valider" id="valider" value="Valider"/>
-            </form> 
-        </div> 
-        <?php    
+                <!-- choix du chapitre à modifier parmi tout ceux de l'histoire-->
+                <form method="POST" action="modification.php?id=<?=$identifiant_histoire?>">  
+                    <p>Choisissez le chapitre que vous voulez modifier:</p>
+                    <select name="chap">
+                        <?php 
+                        $maReq = "SELECT * FROM chapitre WHERE id_hist=:idhistoire";
+                        $response = $BDD->prepare($maReq);
+                        $response->execute(array('idhistoire' => $identifiant_histoire));
+                        while($tuple = $response->fetch())
+                        { 
+                        ?>
+                            <option><?=$tuple['titre']?></option>
+                            
+                        <?php        
+                        } 
+                        ?>                   
+                    </select>  
+                    <input type="submit" name="valider" id="valider" value="Valider"/>
+                </form> 
+            </div> 
+            <?php    
         }
         ?>
     
@@ -70,7 +69,7 @@ require_once "includes/functions.php";
         <p class="text-center titre" >Modifier le chapitre: <?= $tuple["titre"] ?></p>
         <div class="text-center">
         <form method="POST" action="enregistrermodifications.php?id=<?=$_GET['id']?>&idchap=<?=$tuple["id_chapitre"]?>" >
-            
+            <!-- Modification du chapitre, des choix et de l'impact sur le nombre de vie-->
             <textarea name="texte" cols="50" rows="7"><?= $tuple["textes"] ?></textarea> <br/><br/>
             <p>Modifier les choix</p>
             <label for="nom">Choix 1 : </label>  <br/><br/>
@@ -94,10 +93,10 @@ require_once "includes/functions.php";
     </div>
     
 
-    <button type="button" class="btn btn-info" onClick="window.location.href='index.php';">Revenir à l'accueil</button>
-<button type="button" class="btn btn-info" onClick="window.location.href='administrateur.php';">Revenir à la page administrateur</button>
+        <button type="button" class="btn btn-info" onClick="window.location.href='index.php';">Revenir à l'accueil</button>
+        <button type="button" class="btn btn-info" onClick="window.location.href='administrateur.php';">Revenir à la page administrateur</button>
 
-</div> 
+    </div> 
 
 
     <?php require_once "includes/scripts.php"; ?>

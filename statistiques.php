@@ -29,8 +29,9 @@ require_once "includes/functions.php";
                     <p>Cette histoire n'a jamais été jouée!</p>
                 <?php
                 }
-                else
+                else //si l'histoire a été jouée au moins une fois
                 {
+                    //calcul des statistiques
                     $poucentage_reussite=$tuple["nb_gagne"] / $tuple["nb_joue"] * 100; 
                     $pourcentage_mort = $tuple["nb_perdue"] / $tuple["nb_joue"] * 100;  
                     $poucentage_reussite = number_format($poucentage_reussite,2);

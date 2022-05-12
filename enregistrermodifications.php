@@ -8,6 +8,8 @@ if(isset($_GET['id'])&&isset($_GET['idchap']))
 { 
     if(!empty($_POST["texte"])&&!empty($_POST["choix1"])&&!empty($_POST["choix2"])&&!empty($_POST["choix3"])&&!empty($_POST["vie"]))
     {
+        //mise à jour des nouvelles données dans les champs de la table chapitre
+        
         $requete1 = $BDD->prepare('UPDATE chapitre SET textes=:newtext WHERE id_chapitre=:idchap');
         $requete1->execute(array('newtext' => escape($_POST["texte"]),'idchap'=>$_GET['idchap']));
         
