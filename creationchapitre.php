@@ -39,6 +39,7 @@ require_once "includes/functions.php";
         {
             $factice = $nb_chapitres_faits+1;
             $resultat = $_POST['chapitre_precedent'];
+            echo $resultat;
 
             $maReq = "SELECT id_chapitre FROM chapitre WHERE titre =:title";
             $repp = $BDD -> prepare($maReq);
@@ -86,7 +87,7 @@ require_once "includes/functions.php";
                     "hist" => $_GET["histoire"],
                 )); 
             }
-            redirect("creationchapitre.php?histoire=".$_GET['histoire']."&debut=".$_GET['debut']);
+            //redirect("creationchapitre.php?histoire=".$_GET['histoire']."&debut=".$_GET['debut']);
         }
     
     else if(!empty($_POST["resumer"]) && !empty($_POST["titre"]) &&$_GET["debut"]==0)
@@ -96,7 +97,7 @@ require_once "includes/functions.php";
 
         if(isset($_POST['fin']))
             {
-                if($_POST['fin']=="Fin_positive")
+                if($_POST['fin']=="fin_positive")
                 {
                     $fin=0;
                 }
@@ -104,12 +105,13 @@ require_once "includes/functions.php";
                 {
                     $fin=1;
                 }
-                $maReq = $BDD -> prepare("INSERT INTO chapitre (id_chapitre, titre, id_hist, type_fin, textes) VALUES (:id, :title, :hist, :fin, :ecriture)");
+                $maReq = $BDD -> prepare("INSERT INTO chapitre (id_chapitre, titre, id_hist, modif_vie, type_fin, textes) VALUES (:id, :title, :hist, :modif, :fin, :ecriture)");
                 $maReq -> execute(array(
                         'id' => $nb_chapitres_faits+1,
                         'title' => $titre,
                         'hist' => $_GET['histoire'],
                         'fin' => $fin,
+                        'modif' => 0,
                         'ecriture' => $resumer,
                     ));
             }
@@ -127,7 +129,7 @@ require_once "includes/functions.php";
                     $ch3=escape($_POST['ch3']);
 
                     $maReq = $BDD -> prepare("INSERT INTO chapitre (id_chapitre, titre, id_hist, modif_vie, id_ch_choix1, id_ch_choix2, id_ch_choix3, choix1, choix2, choix3, textes) VALUES (:id, :title, :hist, :vie, :id1, :id2, :id3, :t1, :t2, :t3, :ecriture)");
-                    $maReq -> execute(array(
+                    $maReq -> execute(array( 
                                 'id' => $nb_chapitres_faits+1,
                                 'title' => $titre,
                                 'hist' => $_GET['histoire'],
@@ -197,7 +199,7 @@ require_once "includes/functions.php";
             else {
                 $res = $BDD->prepare('UPDATE histoire SET cache = 0 WHERE hist_id = :id'); 
                 $res->execute(array('id' => $_GET['histoire']));  
-                redirect('index.php'); 
+                //redirect('index.php'); 
             }
             
         }
@@ -251,13 +253,13 @@ require_once "includes/functions.php";
                 <legend>Cochez si cela constitue une fin</legend>
 
                 <div>
-                <input type="radio" id="positive" name="fin" value="Fin_positive">
+                <input type="radio" id="positive" name="fin" value="fin_positive">
                         
                 <label for="positive">Fin positive</label>
                 </div>
 
                 <div>
-                <input type="radio" id="negative" name="fin" value="Fin_negative">
+                <input type="radio" id="negative" name="fin" value="fin_negative">
                 <label for="negative">Fin negative</label>
                 </div>
             </fieldset>

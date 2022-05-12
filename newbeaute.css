@@ -83,12 +83,12 @@ button
     border-color: rgb(255, 240, 152);
     color :rgb(255, 240, 152);
 }
-button:hover, .btn_hover:hover/*marche pas...*/
+button:hover, .btn_hover:hover
 {
-    background-color: black;
-    color: white;
+    background-color: gold;
+    color: black;
 }
-.btn_hover:active, button:active /*marche pas...*/
+.btn_hover:active, button:active
 {
     background-color: green;
 }
@@ -123,24 +123,14 @@ a .btn-secondary
     size : 200px;
 }
 
-.bouton, .bouton:visited
+.bouton
 {
-    text-decoration: none;
     color:white;
     background-color: rgb(28, 84, 158);
     border-radius:10px;
     padding:5px;
 
 }
-
-.bouton:hover
-{
-    text-decoration: none;
-    color:white;
-    background-color: rgb(28, 84, 158);
-    border-radius:10px;
-}
-
 
 em
 {
@@ -159,7 +149,7 @@ em
     margin: 10px;
     font-size:20px;
 } 
-.btn_admin:hover
+.btn_admin:hover, .bouton:hover
 {
     background-color: rgb(146, 86, 210);
     text-decoration: none;

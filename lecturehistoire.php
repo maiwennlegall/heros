@@ -215,24 +215,24 @@ require_once "includes/functions.php";
             ?>
         <div class="container">
         <div class="row">
-                <div class="separation col-4 box">
+                <div class="separation col-sm box">
                     <p class="choice"> <?=$choix1?> </p>
                 </div>
-                <div class="separation col-4 box">
+                <div class="separation col-sm box">
                 <p class="choice"> <?=$choix2?> </p>
                 </div>
-                <div class="separation col-4 box">
+                <div class="separation col-sm box">
                 <p class="choice"> <?=$choix3?> </p>
                 </div>
         </div>
         <div class="row">
-            <div class="text-center col-4">
+            <div class="text-center col-sm">
                 <button type="button" class="btn btn-info " onClick="window.location.href='traitement_donnes.php?choix=1&ch=<?=$_GET["ch"]?>&hist=<?=$_GET["hist"]?>';">Choix n°1</button>
             </div>
-            <div class="text-center col-4">
+            <div class="text-center col-sm">
                 <button type="button" class="btn btn-info " onClick="window.location.href='traitement_donnes.php?choix=2&ch=<?=$_GET["ch"]?>&hist=<?=$_GET["hist"]?>';">Choix n°2</button>
             </div>
-            <div class="text-center col-4">
+            <div class="text-center col-sm">
                 <button type="button" class="btn btn-info " onClick="window.location.href='traitement_donnes.php?choix=3&ch=<?=$_GET["ch"]?>&hist=<?=$_GET["hist"]?>';">Choix n°3</button>
             </div>
         </div>

@@ -20,3 +20,12 @@
         window.location.href='traitement_donnes.php?choix='.tartiflette;
     }
 </script>
+
+<script>
+        function Suppression(tartiflette) {;
+            let text = "Vous vous apprêtez à supprimer l'histoire ! \nEtes vous sûres ? \nCliquer sur OK pour la supprimer, sinon sur Annuler";
+            if (confirm(text) == true) {
+                window.location.href='suppression.php?id='+tartiflette;
+                } 
+        }
+</script>
