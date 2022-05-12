@@ -131,8 +131,10 @@ require_once "includes/functions.php";
             }
            
         }
+        //vérifie qu'on est pas de retour sur la page pour reprendre la partie commencé avant
         if(!isset($_GET["retour"]) || isset($_GET["debut"]))
         {
+            //récupère les information pour créer les lignes dans la table historique partie pour avoir la trame complète
             $req = "SELECT * FROM chapitre WHERE id_hist=:histoire";
             $reponse = $BDD -> prepare($req);
             $reponse ->execute(array(
@@ -154,7 +156,7 @@ require_once "includes/functions.php";
                 }
             }
         }
-
+        //prend les informations utiles pour afficher l'histoire et les choix au joueur 
         $maReq = "SELECT * FROM chapitre WHERE id_ch_hors_hist=:iden and id_hist=:histoire";
         $reponse = $BDD -> prepare($maReq);
         $reponse ->execute(array(
@@ -178,6 +180,7 @@ require_once "includes/functions.php";
         </div>
 
         <?php 
+        //différencie une fin d'un chapitre à choix, ici pas une fin
         if($choix1!=NULL)
         {
             ?>
@@ -207,8 +210,10 @@ require_once "includes/functions.php";
 
         <?php 
         }
+        //fin d'histoire
         else
         {
+            //on update la bdd de partie pour annoncer qu'on est sur une fin de partie
             $res = $BDD->prepare('UPDATE partie SET etat_fin =1 WHERE id_utilisateur = :id and id_hist=:hist'); 
             $res->execute(array(
                 "hist" => $_GET["hist"],

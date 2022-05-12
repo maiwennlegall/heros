@@ -7,9 +7,10 @@ require_once "includes/functions.php";
 
 <body>
 <?php require_once "includes/head.php"; 
-
+//regarde si le formulaire est bien rempli
 if(!empty($_POST["nom"])&&!empty($_POST["resume"])&&!empty($_POST["vie"]))
-            {   $maReq = $BDD -> query("SELECT COUNT(hist_id) as nb FROM histoire");
+            {   
+                $maReq = $BDD -> query("SELECT COUNT(hist_id) as nb FROM histoire");
                 $data = $maReq->fetch();
                 echo $data['nb'];
                 $nb = $data['nb'];
@@ -22,6 +23,7 @@ if(!empty($_POST["nom"])&&!empty($_POST["resume"])&&!empty($_POST["vie"]))
                     'resumer' => escape($_POST["resume"]),
                     'nbvie' => $_POST["vie"],
                 ));
+                //redirige vers la création du premier chapitre
                 redirect("creationchapitre.php?debut=1&histoire=".$nb);
             }
         ?>

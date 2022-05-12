@@ -17,6 +17,7 @@ require_once "includes/functions.php";
     <div class="container" id="corps">
     <h1> Fin de votre histoire <h1>
     <?php
+        //permet de déterminer et exprimer le type de fin que l'utilisateur a découvert
         if($_GET["perdu"]==1)
         {
             ?> <h2> Vous avez perdu... </h2>
@@ -27,7 +28,7 @@ require_once "includes/functions.php";
                 <h3> Vous n'aviez plus aucune vie ! </h3>
                 <?php
             }
-
+            //changement de la bdd histoire pour les statistiques d'administrateur
             $req = "SELECT nb_perdue FROM histoire WHERE hist_id=:histoire";
             $reponse = $BDD -> prepare($req);
             $reponse ->execute(array(
@@ -60,6 +61,7 @@ require_once "includes/functions.php";
     <h3> Récapitulatif de votre partie </h3>
     <div class="container">
         <?php
+        //ressort toutes les étapes de la partie, inscrites dans historique partie
         $req = "SELECT * FROM historique_partie WHERE id_joueur=:joueur and id_hist=:hist";
         $reponse = $BDD -> prepare($req);
         $reponse ->execute(array(
@@ -85,6 +87,7 @@ require_once "includes/functions.php";
                 
             <?php
         }
+        //maintenant que la partie est fini, on supprime tout en rapport
         $requete = 'DELETE FROM historique_partie WHERE id_joueur=:joueur and id_hist=:hist';
         $response = $BDD->prepare($requete);
         $response->execute(array(
