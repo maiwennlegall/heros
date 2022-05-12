@@ -11,24 +11,53 @@
 
         if(!empty($_POST["login"])&&!empty($_POST["mdp"]))
             {   
+                //Vérification que le login n'est pas déjà utilisé
+
+                $login = escape($_POST['login']);
+                $password = escape($_POST['mdp']);
+                $stmt = $BDD->query('SELECT id_joueur from utilisateur');
+                while($tuple = $stmt->fetch()) 
+                {
+                    if($tuple['id_joueur']==$login)
+                    {
+                        $existe=true;
+                    }
+                }
+                if($existe==false)
+                {
+                    $maReq = $BDD -> prepare("INSERT INTO utilisateur (id_joueur, mdp) VALUES (:identifiant, :mdp)");
+                    $maReq -> execute(array(
+                    'identifiant' => $login,
+                    'mdp' => $password,
+                    ));
+                    redirect("connexion.php");
+                }
                 
-                $maReq = $BDD -> prepare("INSERT INTO utilisateur (id_joueur, mdp) VALUES (:identifiant, :mdp)");
-                $maReq -> execute(array(
-                    'identifiant' => $_POST["login"],
-                    'mdp' => $_POST["mdp"],
-                ));
-                redirect("connexion.php");
             }
+
+                
+            
         ?>
 
     </div>
 <div class="container" id="corps">
     <h1 class="text-center">Inscription</h1>
-
+    <?php
+        if($existe==true)
+        { 
+            $erreur = "Ce nom d'utilisateur est déjà utilisé"; 
+            if (isset($erreur)) 
+            { ?>
+                    <div class="alert alert-danger">
+                    <strong>Erreur !</strong> <?= $erreur ?>
+                    </div>
+            <?php }           
+         } ?>
 <div class="text-center">
         <form method="post" action="inscription.php"> <!--changer le fichier dans action-->
         <input type="text"  name="login" placeholder="Entrez un identifiant" > <br/><br/>
         <input type="password"  name="mdp" placeholder="Entrez un mot de passe" ><br/><br/>
+        
         <input type="submit" class="btn btn-default btn-primary btn-lg" name="submit" id="submit" value="S'inscrire"/>            
 </div>
 
