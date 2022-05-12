@@ -76,6 +76,7 @@ require_once "includes/functions.php";
                 "ch" => $_GET["ch"],
             )); 
 
+            //On ajoute 1 au nombre de parties jouées
             $req = "SELECT nb_joue FROM histoire WHERE hist_id=:histoire";
             $reponse = $BDD -> prepare($req);
             $reponse ->execute(array(
