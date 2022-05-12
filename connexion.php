@@ -1,7 +1,11 @@
+<!doctype html>
+<html lang="fr">
+    
 <?php require_once "includes/head.php";
 require_once "includes/functions.php";
 include("includes/connect.php"); 
 ?>
+
 
 <body>
     <div class="container">
@@ -45,4 +49,5 @@ include("includes/connect.php");
 </div>
     <?php require_once "includes/scripts.php"; ?>
 </body>
+<html>
 

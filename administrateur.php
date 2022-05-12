@@ -3,7 +3,7 @@
 require_once "includes/functions.php";
 ?>
 <!doctype html>
-<html>
+<html lang="fr">
 
 <?php require_once "includes/head.php"; ?>
 <body>
