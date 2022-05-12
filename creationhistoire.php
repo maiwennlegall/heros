@@ -18,8 +18,8 @@ if(!empty($_POST["nom"])&&!empty($_POST["resume"])&&!empty($_POST["vie"]))
                 $maReq = $BDD -> prepare("INSERT INTO histoire (hist_id, titre, resumer, nb_vie_dbt) VALUES (:id, :title, :resumer, :nbvie)");
                 $maReq -> execute(array(
                     'id' => $nb,
-                    'title' => $_POST["nom"],
-                    'resumer' => $_POST["resume"],
+                    'title' => escape($_POST["nom"]),
+                    'resumer' => escape($_POST["resume"]),
                     'nbvie' => $_POST["vie"],
                 ));
                 redirect("creationchapitre.php?debut=1&histoire=".$nb);

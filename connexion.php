@@ -13,16 +13,18 @@ include("includes/connect.php");
     if (!empty($_POST['login']) and !empty($_POST['mdp'])) {
     $login = $_POST['login'];
     $password = $_POST['mdp'];
-    $stmt = $BDD->prepare('select * from utilisateur where id_joueur=? and mdp=?');
+    $stmt = $BDD->prepare('SELECT COUNT(*) AS nb from utilisateur where id_joueur=? and mdp=?');
     $stmt->execute(array($login, $password));
-        if ($stmt->rowCount() == 1) {
-            // Authentication successful
-            $_SESSION['login'] = $login;
-            redirect("index.php");
-        }
-        else {
-            $error = "Utilisateur non reconnu";
-        }
+    $line = $stmt ->fetch();
+    if($line['nb']==1)
+    {
+        // Authentication successful
+        $_SESSION['login'] = $login;
+        redirect("index.php");
+    }
+    else {
+        $error = "Utilisateur non reconnu";
+    }
     } ?>
 <div class="container" id="corps">
     <h1 class="text-center">Connexion</h1>
