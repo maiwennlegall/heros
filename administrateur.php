@@ -3,7 +3,7 @@
 require_once "includes/functions.php";
 ?>
 <!doctype html>
-<html>
+<html lang="fr">
 
 <?php require_once "includes/head.php"; ?>
 <body>
@@ -54,7 +54,7 @@ require_once "includes/functions.php";
                     </div>
                     
                     <div class="col-m">
-                    <button type="button" class="btn_admin" onClick="window.location.href='afficher.php?id=statistiques.php?id=<?= $tuple["hist_id"] ?>';"> 
+                    <button type="button" class="btn_admin" onClick="window.location.href='statistiques.php?id=<?= $tuple["hist_id"] ?>';"> 
                         Statistiques
                         <img src="includes/charts.png" class="logo" alt="dessin de graphique" ><!-- Page statisqtiques -->
                     </button>   

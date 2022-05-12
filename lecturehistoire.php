@@ -1,11 +1,10 @@
+<!doctype html>
+<html lang="fr">
+
 <?php include("includes/connect.php"); ?>
 <?php
 require_once "includes/functions.php";
 ?>
-
-
-<!doctype html>
-<html>
 
 <?php require_once "includes/head.php"; ?>
 
@@ -82,51 +81,19 @@ require_once "includes/functions.php";
             $reponse ->execute(array(
                 "histoire" => $_GET["hist"],
             ));
-            $nbjoue = $reponse -> fetch();
-            $newnbjoue = $nbjoue["nb_joue"] + 1;
+            $nbjouer = $reponse -> fetch();
+            $newnbjoue = $nbjouer["nb_joue"]+1;
 
             $requete = $BDD->prepare('UPDATE histoire SET nb_joue=:newnb_joue WHERE hist_id=:idhistoire');
-            $requete->execute(array('newnb_joue' => $newnbjoue,'idhistoire'=> $_GET["hist"]));
+            $requete->execute(array(
+                'newnb_joue' => $newnbjoue,
+                'idhistoire'=> $_GET["hist"]
+            ));
         }
         //on vérifie qu'on vient bien sur ce chapitre pour la première fois dans cette partie 
         //ce n'est pas un retour depuis la page d'accueil pour reprendre l'histoire
         else if(!isset($_GET["retour"]))
         {
-
-            /*$req = "SELECT * FROM chapitre WHERE id_hist=:histoire";
-            $reponse = $BDD -> prepare($req);
-            $reponse ->execute(array(
-                "histoire" => $_GET["hist"],
-            ));
-            $text_choix="";
-            $text_chap="";
-            while($tuple = $reponse->fetch()){
-                if($tuple["id_ch_choix1"]==$_GET["ch"])
-                {
-                    $text_choix = $tuple["choix1"];
-                    $text_chap = $tuple["textes"];
-                }
-                else if($tuple["id_ch_choix2"]==$_GET["ch"])
-                {
-                    $text_choix = $tuple["choix2"];
-                    $text_chap = $tuple["textes"];
-                }
-                else if($tuple["id_ch_choix3"]==$_GET["ch"])
-                {
-                    $text_choix = $tuple["choix3"];
-                    $text_chap = $tuple["textes"];
-                }
-            }
-            $req = $BDD -> prepare("INSERT INTO historique_partie (id_hist, id_joueur, text_chapitre, text_choix_fait) VALUES (:hist, :joueur, :ch, :choix)");
-            $req -> execute(array(
-                    'hist' => $_GET['hist'],
-                    'joueur' => $_SESSION["login"],
-                    'ch' => $text_chap,
-                    'choix' => $text_choix,
-            ));
-            */
-            
-
             $premReq = "SELECT point_de_vie FROM partie WHERE id_utilisateur=:id and id_hist=:hist";
             $repp = $BDD -> prepare($premReq);
             $repp -> execute(array(

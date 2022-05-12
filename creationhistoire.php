@@ -1,11 +1,11 @@
+<!doctype html>
+<html lang="fr">
 <?php include("includes/connect.php"); ?>
 <?php
 require_once "includes/functions.php";
 ?>
 
-<!doctype html>
-<html>
-
+<body>
 <?php require_once "includes/head.php"; 
 
 if(!empty($_POST["nom"])&&!empty($_POST["resume"])&&!empty($_POST["vie"]))

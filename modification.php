@@ -5,6 +5,8 @@ require_once "includes/functions.php";
 <!doctype html>
 <html>
 
+<!doctype html>
+<html lang="fr">
 <?php require_once "includes/head.php"; ?>
 <body>
     <div class="container">

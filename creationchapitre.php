@@ -1,11 +1,10 @@
+<!doctype html>
+<html lang="fr">
+
 <?php include("includes/connect.php"); ?>
 <?php
 require_once "includes/functions.php";
 ?>
-
-
-<!doctype html>
-<html>
 
 <?php require_once "includes/head.php"; ?>
 
@@ -39,15 +38,14 @@ require_once "includes/functions.php";
         {
             $factice = $nb_chapitres_faits+1;
             $resultat = $_POST['chapitre_precedent'];
-            echo $resultat;
 
-            $maReq = "SELECT id_chapitre FROM chapitre WHERE titre =:title";
+            /*$maReq = "SELECT id_chapitre FROM chapitre WHERE id_chapitre=:title";
             $repp = $BDD -> prepare($maReq);
             $repp -> execute(array(
                 "title" => $resultat
             ));
             $data = $repp->fetch();
-            $ch_prec = $data["id_chapitre"];
+            $ch_prec = $data["id_chapitre"];*/
 
             $maReq = "SELECT * FROM chapitre WHERE (id_ch_choix1= :ch or id_ch_choix2 =:ch or id_ch_choix3 = :ch) and id_hist=:hist";
             $repp = $BDD -> prepare($maReq);
@@ -61,7 +59,7 @@ require_once "includes/functions.php";
             {
                 $res = $BDD->prepare('UPDATE chapitre SET id_ch_choix1 =:suivant, id_ch_choix3 =:trois, id_ch_choix2 =:deux  WHERE id_ch_choix1= :ch and id_hist=:hist'); 
                 $res->execute(array(
-                'suivant' => $ch_prec,
+                'suivant' => $resultat,
                 "trois" => $tuple["id_ch_choix2"],
                 'deux' => $tuple["id_ch_choix1"],
                 "ch" => $factice,
@@ -73,7 +71,7 @@ require_once "includes/functions.php";
                 $res = $BDD->prepare('UPDATE chapitre SET id_ch_choix3 =:trois, id_ch_choix2 =:suivant WHERE id_ch_choix2= :ch and id_hist=:hist'); 
                 $res->execute(array(
                     "trois" => $tuple["id_ch_choix2"],
-                    'suivant' => $ch_prec,
+                    'suivant' => $resultat,
                     "ch" => $factice,
                     "hist" => $_GET["histoire"],
                 )); 
@@ -82,7 +80,7 @@ require_once "includes/functions.php";
             {
                 $res = $BDD->prepare('UPDATE chapitre SET id_ch_choix3 =:suivant WHERE id_ch_choix3= :ch and id_hist=:hist'); 
                 $res->execute(array(
-                    'suivant' => $ch_prec,
+                    'suivant' => $resultat,
                     "ch" => $factice,
                     "hist" => $_GET["histoire"],
                 )); 
@@ -199,7 +197,7 @@ require_once "includes/functions.php";
             else {
                 $res = $BDD->prepare('UPDATE histoire SET cache = 0 WHERE hist_id = :id'); 
                 $res->execute(array('id' => $_GET['histoire']));  
-                //redirect('index.php'); 
+                redirect('index.php'); 
             }
             
         }
@@ -216,7 +214,7 @@ require_once "includes/functions.php";
                 <div class="container">
                 <label for="chapitre_deja_cree"> Vous souhaitez que le chapitre à gauche ait pour suite un chapitre déjà créé : </label>
                 <select name="chapitre_precedent" id="chapitre_deja_cree">
-                    <option selected="">Fais ton choix</option>
+                    <option>Fais ton choix</option>
                 <?php
                 $value="";
                 $maReq = "SELECT * FROM chapitre WHERE id_hist=:hist_id";
@@ -236,7 +234,8 @@ require_once "includes/functions.php";
             <label for="titre">Titre de votre chapitre</label>
             <input type="text" name="titre"> <br/><br/>
 
-            <textarea name="resumer" cols="50" rows="7" placeholder="Texte de votre chapitre"></textarea> <br/><br/>
+            <label for="resumer"> Texte de votre chapitre : </label> <br/>
+            <textarea name="resumer" cols="50" rows="7"></textarea> <br/><br/>
 
             <label for="vie">Modification du nombre de vie (+1, -1...)</label>
             <input type="number"  name="vie"> <br/><br/>
@@ -266,7 +265,7 @@ require_once "includes/functions.php";
     
 
 
-            <input type="submit" class="btn btn-default btn-primary btn-lg"/>
+            <input type="submit" class="btn btn-default btn-primary btn-lg" value="Envoyer"/>
             <br/><br/><br/><br/>          
         </div>
     </div>

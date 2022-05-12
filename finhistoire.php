@@ -1,10 +1,11 @@
+<!doctype html>
+<html lang="fr">
+
 <?php include("includes/connect.php"); ?>
 <?php
 require_once "includes/functions.php";
 ?>
 
-<!doctype html>
-<html>
 
 <?php require_once "includes/head.php"; ?>
 
@@ -99,7 +100,10 @@ require_once "includes/functions.php";
         ));
         ?>
     </div>
-    <button type="button" class="btn btn-info" onClick="window.location.href='index.php';">Revenir à l'accueil</button>
+    <div class="mt-3 text-center">
+    <button type="button" class="btn btn-info espacer" onClick="window.location.href='index.php';">Revenir à l'accueil</button>
+    </div>
     </div>
 
 </body>
+</html>

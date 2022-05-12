@@ -1,9 +1,10 @@
+<!doctype html>
+<html lang="fr">
+    
 <?php include("includes/connect.php"); ?>
 <?php
 require_once "includes/functions.php";
 ?>
-<!doctype html>
-<html>
 
 <?php require_once "includes/head.php"; ?>
 <body>

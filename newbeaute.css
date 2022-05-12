@@ -82,6 +82,8 @@ button
     background-color: rgb(28, 84, 158);
     border-color: rgb(255, 240, 152);
     color :rgb(255, 240, 152);
+    min-width: 44px;
+    min-height: 44px;
 }
 button:hover, .btn_hover:hover
 {
@@ -173,6 +175,10 @@ em
 input:focus, textarea:focus 
 {
     border: dotted black;
+}
+.espacer
+{
+    margin: 30px;
 }
 
 

@@ -1,3 +1,6 @@
+<!doctype html>
+<html lang="fr">
+
 <?php 
     require_once "includes/head.php";
     include("includes/connect.php");
@@ -58,3 +61,4 @@
 <?php require_once "includes/scripts.php"; ?>
     
 </body>
+</html>

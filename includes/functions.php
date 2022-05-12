@@ -30,13 +30,14 @@ function premier_ch_non_fini() {
         $test = false;
         $valeur = $tuple['id_ch_choix1'];
         $text_choix = $tuple['choix1'];
-        if($tuple['id_ch_choix1']==null) 
+        if($tuple['id_ch_choix1']==NULL) 
             $test=true;
         else
         {
-            $newRequete = "SELECT * FROM chapitre WHERE id_hist=?";
+            $newRequete = "SELECT * FROM chapitre WHERE id_hist=:hist";
             $res = $BDD->prepare($newRequete);
-            $res->execute(array($_GET['histoire']));
+            $res->execute(array(
+                'hist' => $_GET['histoire']));
             $pasun = false;
             $pasundeux = false;
             while($newtuple = $res->fetch()){ 
@@ -56,7 +57,6 @@ function premier_ch_non_fini() {
                         $test = true;
                         $pasundeux = true;
                     }
-                
             }            
         }
         if($test == false)
