@@ -64,7 +64,7 @@
         
         <input type="submit" class="btn btn-default btn-primary btn-lg" name="submit" id="submit" value="S'inscrire"/>            
 </div>
-
+<br/>
 <p class="text-center"> J'ai déjà un compte: <a class="btn btn-secondary" href="connexion.php" type="button">Se connecter</a></p>
     <?php require_once "includes/scripts.php"; ?>
     

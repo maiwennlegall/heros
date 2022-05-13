@@ -15,7 +15,6 @@ require_once "includes/functions.php";
     </div>
     <?php
 
-
     //on compte le nombre de chapitre déjà créé pour cette histoire dans la table chapitre
     $reqq = 'SELECT count(*) as nb from chapitre WHERE id_hist=:hist'; 
     $resp = $BDD->prepare($reqq);
@@ -35,11 +34,18 @@ require_once "includes/functions.php";
     $data = $resp->fetch();                             
     $nb_chapitres_pas_fin = $data['nbr'];
 
+    $id_chs = 1;
+    if($nb_chapitres_faits != 0)
+    {
+       [$valeur, $text_chap, $text_choix] = premier_ch_non_fini();
+        $id_chs = $valeur;
+    }
+
     //regarde si dans le formulaire il a été choisi de reprendre un chapitre précedemment choisi
     if(isset($_POST["chapitre_precedent"]) && $_POST["chapitre_precedent"]!="Fais ton choix")
         {
             //permet de connaitre l'identifiant qu'à actuellement le choix dont on veut changer la direction
-            $factice = $nb_chapitres_faits+1;
+            $factice = $id_chs;
             //récupère dans une variable l'identifiant du chapitre choisi précédemment
             $resultat = $_POST['chapitre_precedent'];
 
@@ -63,20 +69,17 @@ require_once "includes/functions.php";
             //on détermine si c'est le choix 1, 2 ou 3 et on update différemment les autres choix en fonction
             if($factice==$tuple["id_ch_choix1"])
             {
-                $res = $BDD->prepare('UPDATE chapitre SET id_ch_choix1 =:suivant, id_ch_choix3 =:trois, id_ch_choix2 =:deux  WHERE id_ch_choix1= :ch and id_hist=:hist'); 
+                $res = $BDD->prepare('UPDATE chapitre SET id_ch_choix1 =:suivant WHERE id_ch_choix1= :ch and id_hist=:hist'); 
                 $res->execute(array(
                 'suivant' => $resultat,
-                "trois" => $tuple["id_ch_choix2"],
-                'deux' => $tuple["id_ch_choix1"],
                 "ch" => $factice,
                 "hist" => $_GET["histoire"],
                 )); 
             }
             else if($factice==$tuple["id_ch_choix2"])
             {
-                $res = $BDD->prepare('UPDATE chapitre SET id_ch_choix3 =:trois, id_ch_choix2 =:suivant WHERE id_ch_choix2= :ch and id_hist=:hist'); 
+                $res = $BDD->prepare('UPDATE chapitre SET id_ch_choix2 =:suivant WHERE id_ch_choix2= :ch and id_hist=:hist'); 
                 $res->execute(array(
-                    "trois" => $tuple["id_ch_choix2"],
                     'suivant' => $resultat,
                     "ch" => $factice,
                     "hist" => $_GET["histoire"],
@@ -96,6 +99,8 @@ require_once "includes/functions.php";
     //on vérifie que le formulaire est bien rempli, $_GET["debut]==0 signie que ce n'est pas le premier chapitre qu'on écrit
     else if(!empty($_POST["resumer"]) && !empty($_POST["titre"]) &&$_GET["debut"]==0)
     {   
+        
+        
         //sécurisation des données
         $resumer=escape($_POST["resumer"]);
         $titre=escape($_POST["titre"]);
@@ -114,7 +119,7 @@ require_once "includes/functions.php";
                 }
                 $maReq = $BDD -> prepare("INSERT INTO chapitre (id_chapitre, titre, id_hist, modif_vie, type_fin, textes) VALUES (:id, :title, :hist, :modif, :fin, :ecriture)");
                 $maReq -> execute(array(
-                        'id' => $nb_chapitres_faits+1,
+                        'id' => $id_chs,
                         'title' => $titre,
                         'hist' => $_GET['histoire'],
                         'fin' => $fin,
@@ -136,7 +141,7 @@ require_once "includes/functions.php";
 
                     $maReq = $BDD -> prepare("INSERT INTO chapitre (id_chapitre, titre, id_hist, modif_vie, id_ch_choix1, id_ch_choix2, id_ch_choix3, choix1, choix2, choix3, textes) VALUES (:id, :title, :hist, :vie, :id1, :id2, :id3, :t1, :t2, :t3, :ecriture)");
                     $maReq -> execute(array( 
-                                'id' => $nb_chapitres_faits+1,
+                                'id' => $id_chs,
                                 'title' => $titre,
                                 'hist' => $_GET['histoire'],
                                 'vie' => $_POST['vie'],

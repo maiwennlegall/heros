@@ -12,7 +12,6 @@ if(!empty($_POST["nom"])&&!empty($_POST["resume"])&&!empty($_POST["vie"]))
             {   
                 $maReq = $BDD -> query("SELECT COUNT(hist_id) as nb FROM histoire");
                 $data = $maReq->fetch();
-                echo $data['nb'];
                 $nb = $data['nb'];
                 $nb = $nb+1;
 

@@ -45,6 +45,7 @@ include("includes/connect.php");
             <input type="password"  name="mdp" placeholder="Entrez votre mot de passe" ><br/><br/>
             <input type="submit" class="btn btn-default btn-primary btn-lg" name="se_connecter" id="se_connecter" value="Se connecter"/>            
     </div>
+    <br/>
     <p class="text-center">Je n'ai pas de compte: <a class="btn btn-secondary" href="inscription.php" type="button">Créer un compte</a></p>
 </div>
     <?php require_once "includes/scripts.php"; ?>

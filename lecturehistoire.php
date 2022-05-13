@@ -39,6 +39,21 @@ require_once "includes/functions.php";
                             'vie' => $vie_dbt,
                             'ch' => $_GET['ch'],
                             ));
+
+            //On ajoute 1 au nombre de parties jouées
+            $req = "SELECT nb_joue FROM histoire WHERE hist_id=:histoire";
+            $reponse = $BDD -> prepare($req);
+            $reponse ->execute(array(
+                "histoire" => $_GET["hist"],
+            ));
+            $nbjouer = $reponse -> fetch();
+            $newnbjoue = $nbjouer["nb_joue"]+1;
+
+            $requete = $BDD->prepare('UPDATE histoire SET nb_joue=:newnb_joue WHERE hist_id=:idhistoire');
+            $requete->execute(array(
+                'newnb_joue' => $newnbjoue,
+                'idhistoire'=> $_GET["hist"]
+            ));
         }
         else if(isset($_GET["debut"]))
         {
@@ -126,7 +141,6 @@ require_once "includes/functions.php";
 
             if($nouvellevie <= 0)
             {
-                echo "test fin vie";
                 redirect('finhistoire.php?perdu=1&vie=false&hist='.$_GET["hist"]);
             }
            
