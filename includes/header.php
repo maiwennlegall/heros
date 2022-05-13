@@ -18,10 +18,10 @@
           if($line['administrateur']!=0)
           {
             ?> <li class="nav-item">
-            <a class="nav-link" href="../../heros/creationhistoire.php">Création histoire</a>
+            <a class="nav-link" href=".../../creationhistoire.php">Création histoire</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="../../heros/administrateur.php">Administrateur</a>
+            <a class="nav-link" href=".../../administrateur.php">Administrateur</a>
             </li>
             <?php
           }

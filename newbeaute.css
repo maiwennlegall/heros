@@ -84,6 +84,7 @@ button
     color :rgb(255, 240, 152);
     min-width: 44px;
     min-height: 44px;
+    margin : 10px;
 }
 button:hover, .btn_hover:hover
 {
